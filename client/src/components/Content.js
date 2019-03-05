@@ -18,7 +18,7 @@ export default class Content extends Component {
       listComponent = '';
 
     if (showList) {
-      listComponent = <ListManager data={data}/>
+      listComponent = <ListManager onItemClick={this.props.onItemClick} data={data}/>
     }
 
     return (
