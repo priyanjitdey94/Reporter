@@ -47,9 +47,9 @@ class App extends Component {
     });
   }
 
-  onUserAuth = () => {
+  onUserAuth = (value) => {
     this.setState({
-      userInfo: true
+      userInfo: value
     });
   }
 }

@@ -1,12 +1,16 @@
+body {
+  background-color: black;
+}
+
 .App {
   text-align: center;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  font-family: 'Roboto'
+  font-family: 'Roboto';
+  color: #D4D4D4;
 }
 
 .hide {
