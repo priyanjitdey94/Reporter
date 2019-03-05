@@ -21,8 +21,8 @@ class ListManager extends Component {
 
     listItems = itemInfo.map((info, index) => <ListItem info={info} key={index} />);
     return (
-      <div className='List-Manager'>
-        <div className='List-Item-Container'>
+      <div className='list-manager'>
+        <div className='list-item-container'>
           {listItems}
         </div>
         <button>Create Issues</button>

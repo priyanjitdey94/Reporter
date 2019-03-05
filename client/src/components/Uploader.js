@@ -1,61 +1,19 @@
 import React, { Component } from 'react';
-import Papa from 'papaparse';
-import ListManager from './ListManager';
 
 class Uploader extends Component {
-  constructor () {
-    super();
-    this.state = {
-      csvFile: undefined,
-      showList: undefined,
-      data: undefined
-    }
-  }
-  
   render () {
-    let { showList, data } = this.state,
-      listComponent = '';
-
-    if (showList) {
-      listComponent = <ListManager data={data}/>
-    }
+    let { csvFile, updateCSVFile, processCSV } = this.props;
     return (
       <div className='uploader'>
-        <label>Select a file </label> 
+        <label>Select a file </label>
         <input type='file'
-          id='uploadInput'
+          id='upload-input'
           accept='.csv'
-          onChange={this.handleChange}>
+          onChange={updateCSVFile}>
         </input>
-        <button onClick={this.processCSV}>Upload</button>
-        <br></br>
-        {listComponent}
-      </div>
-    );
-  }
-
-  handleChange = event => {
-    let csvFile = event.target && event.target.files && event.target.files[0];
-    this.setState({
-      csvFile
-    });
-  }
-  processCSV = () => {
-    const { csvFile } = this.state;
-    if (csvFile) {
-      Papa.parse(csvFile, {
-        complete: this.updateData,
-        header: true
-      });
-    }
-  }
-
-  updateData = result => {
-    var data = result.data;
-    this.setState({
-      showList: true,
-      data
-    });
+        <button className={csvFile ? '' : 'hide'}onClick={processCSV}>Upload</button>
+     </div>
+    )
   }
 }
 
