@@ -6,3 +6,22 @@
     height: 90vh;
     width: 100%;
 }
+
+.btn {
+    width: 100px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: #25272c;
+    color: #D4D4D7;
+    font-size: 15px;
+    font-weight: 500;
+    outline: none;
+}
+
+#log-btn {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

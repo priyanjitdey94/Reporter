@@ -18,7 +18,6 @@ class ListManager extends Component {
   }
 
   getListItems () {
-    debugger;
     let data = this.props.data || [],
       i,
       len = data.length,

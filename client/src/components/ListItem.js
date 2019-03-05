@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-
+import '../css/listitem.css'
 class ListItem extends Component {
   render () {
-    console.log(this.props.info);
     return (
-      <div className='list-item'>
+      <div className='list-item' onClick={(e) => {this.handleClick(e)}}>
         {JSON.stringify(this.props.info, null, 4)}
       </div>
     );
+  }
+  handleClick = (e) => {
+    console.log(e.target);
+    e.target.style.height = '300px';
   }
 }
 

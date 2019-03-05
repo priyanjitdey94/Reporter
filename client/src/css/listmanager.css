@@ -4,5 +4,17 @@
     justify-content: center;
     align-items: center;
     width: 80vw;
-    height: 40vh;
+    height: 60vh;
+    background-color: #282c34;
+    padding: 0px 5px;
+}
+
+.list-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
 }

@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import '../css/uploader.css';
+import Input from '@material-ui/core/Input';
 
 class Uploader extends Component {
   render () {
     let { csvFile, updateCSVFile, processCSV } = this.props;
     return (
       <div className='uploader'>
-        <label>Select a file </label>
-        <input type='file'
+        <Input type='file'
           id='upload-input'
           accept='.csv'
           onChange={updateCSVFile}>
-        </input>
-        <button className={csvFile ? '' : 'hide'}onClick={processCSV}>Upload</button>
+        </Input>
+        <br></br>
+        <button className={csvFile ? 'btn' : 'hide'}onClick={processCSV}>Upload</button>
      </div>
     )
   }

@@ -25,6 +25,9 @@ export default class Content extends Component {
       <div className='content'>
         <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
         {listComponent}
+        <div id='log-btn'>
+          <button className={showList ? 'btn': 'hide'}>Log Issues</button>
+        </div>
       </div>
     );
   }
