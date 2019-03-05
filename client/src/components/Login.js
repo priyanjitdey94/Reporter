@@ -6,15 +6,15 @@ class Login extends Component {
   render () {
     return (
       <div className='login-form'>
-        <div className='form-row'> 
-          <label> User name: </label>
-          <input type='text' id='username'></input>
+      <form onSubmit={(e)=> {e.preventDefault(); this.authorizeLogin()}} >
+        <div className='form-row'>
+          <input type='text' id='username' placeholder="Username"></input>
         </div>
         <div className='form-row'>
-          <label> Password: </label>
-          <input type='password' id='password'></input>
+          <input type='password' id='password' placeholder="Password"></input>
         </div>
-        <button onClick={()=> {this.authorizeLogin()}}>Login</button>
+        <button className='btn' id='log-in-btn'>Login</button>
+      </form>
       </div>
     );
   }

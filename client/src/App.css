@@ -6,7 +6,8 @@
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  font-family: 'Roboto'
+  font-family: 'Roboto';
+  color: #D4D4D4;
 }
 
 .hide {

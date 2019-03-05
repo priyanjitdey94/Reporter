@@ -12,10 +12,11 @@
     height: 30px;
     border-radius: 2px;
     background-color: #25272c;
-    color: #D4D4D7;
+    color: #D4D4D4;
     font-size: 15px;
     font-weight: 500;
     outline: none;
+    cursor: pointer;
 }
 
 #log-btn {
