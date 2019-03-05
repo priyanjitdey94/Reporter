@@ -9,6 +9,7 @@
 }
 
 #upload-input {
+    width: 30vw;
     font-size: 15px;
     font-weight: 500;
     outline: none;
