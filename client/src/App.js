@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Uploader from './components/uploader';
 import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
+import Content from './components/Content';
 
 class App extends Component {
   constructor () {
@@ -15,7 +15,7 @@ class App extends Component {
     let { userInfo } = this.state,
       bodyVisual;
 
-    bodyVisual = userInfo ? <Uploader /> : <Login onUserAuth={this.onUserAuth} />;
+    bodyVisual = userInfo ? <Content /> : <Login onUserAuth={this.onUserAuth} />;
     return (
       <div className="App">
         <Header />

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ListItem extends Component {
   render () {
     return (
-      <div className='List-item'>
+      <div className='list-item'>
         {this.props.info.Description}
       </div>
     );
