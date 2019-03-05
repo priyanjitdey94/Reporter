@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/uploader.css';
 
 class Uploader extends Component {
   render () {

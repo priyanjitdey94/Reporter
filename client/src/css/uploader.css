@@ -1,0 +1,12 @@
+.uploader {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #f8f5f5;
+}
+
+#upload-input {
+    width: 180px;
+}

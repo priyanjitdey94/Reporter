@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Papa from 'papaparse';
 import ListManager from './ListManager';
 import Uploader from './Uploader';
+import '../css/content.css'
 
 export default class Content extends Component {
   constructor () {
