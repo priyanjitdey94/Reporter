@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import '../css/login.css';
 // import cryptojs from 'crypto-js';
 
 class Login extends Component {
   render () {
     return (
-      <div className='Login-Widget'>
-        <label> User name: </label>
-        <input type='text' id='username'></input>
-        <br></br>
-        <label> Password: </label>
-        <input type='password' id='password'></input>
-        <br></br>
+      <div className='login-form'>
+        <div className='form-row'> 
+          <label> User name: </label>
+          <input type='text' id='username'></input>
+        </div>
+        <div className='form-row'>
+          <label> Password: </label>
+          <input type='password' id='password'></input>
+        </div>
         <button onClick={this.authorizeLogin}>Login</button>
       </div>
     );
