@@ -28,9 +28,9 @@ class App extends Component {
     return !!(localStorage.getItem('jiraReporterUser'));
   }
 
-  onUserAuth = () => {
+  onUserAuth = (value) => {
     this.setState({
-      userInfo: true
+      userInfo: value
     });
   }
 }
