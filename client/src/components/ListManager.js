@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListItem from './list-item';
+import ListItem from './ListItem';
 
 class ListManager extends Component {
   getListItems () {
