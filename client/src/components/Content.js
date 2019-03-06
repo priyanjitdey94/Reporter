@@ -19,7 +19,6 @@ export default class Content extends Component {
     let { showList, csvFile, issues } = this.state,
       listComponent = '';
 
-    debugger;
     if (showList) {
       listComponent = <ListManager 
         onItemClick={this.props.onItemClick}

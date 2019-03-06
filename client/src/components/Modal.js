@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
+import ModalItem from './ModalItem';
 import '../css/modal.css';
+
+const dom = {
+    'input': {
+      dom: 'input',
+      type: 'text'
+    },
+    'textarea': {
+      dom: 'textarea'
+    }
+  };
 
 class Modal extends Component {
   render () {
+    let { info } = this.props,
+      description = JSON.stringify(JSON.parse(info['Test Data']), undefined, 4);
+    console.log(info);
     return (
       <div className='modal-background'>
         <div className='modal-container'>
@@ -10,42 +24,14 @@ class Modal extends Component {
             <button className='modal-header-button'  onClick={this.handler} >X</button>
           </div>
           <div className='modal-body'>
-            <div className='data-selector'>
-              <label className='data-label'>Project</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Issue type</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Summary</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Priority</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Affect Version</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Assignee</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Reviewer</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Reporter</label>
-              <input type='text'></input>
-            </div>
-            <div className='data-selector'>
-              <label className='data-label'>Description</label>
-              <textarea className='data-textarea'></textarea>
-            </div>
+            <ModalItem inputType={dom.input} defaultValue='' labelValue='Project'/>
+            <ModalItem inputType={dom.input} defaultValue={info.type} labelValue='Issue type'/>
+            <ModalItem inputType={dom.input} defaultValue={info.Title} labelValue='Summary'/>
+            <ModalItem inputType={dom.input} defaultValue={info.Priority} labelValue='Priority'/>
+            <ModalItem inputType={dom.input} defaultValue={info['Affect Versions']} labelValue='Affect Version/s'/>
+            <ModalItem inputType={dom.input} defaultValue={info.Assignee} labelValue='Assignee'/>
+            <ModalItem inputType={dom.input} defaultValue={info.Reviewer} labelValue='Reviewer'/>
+            <ModalItem inputType={dom.textarea} classNames={{input: 'data-textarea'}} config={{rows: 20, cols: 30}} defaultValue={description} labelValue='Description'/>
           </div>
           <div className='modal-footer'>
             <button className='modal-footer-button'  onClick={this.handler} >Cancel</button>
