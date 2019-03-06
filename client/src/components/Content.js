@@ -21,7 +21,7 @@ export default class Content extends Component {
 
     if (showList) {
       listComponent = 
-      <IssueManager showList={showList} issues={issues} onItemClick={this.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue}/>
+      <IssueManager showList={showList} issues={issues} onItemClick={this.props.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue}/>
     }
 
     return (

@@ -16,7 +16,6 @@ class Modal extends Component {
   render () {
     let { info } = this.props,
       description = JSON.stringify(JSON.parse(info['Test Data']), undefined, 4);
-    console.log(info);
     return (
       <div className='modal-background'>
         <div className='modal-container'>
@@ -25,7 +24,7 @@ class Modal extends Component {
           </div>
           <div className='modal-body'>
             <ModalItem inputType={dom.input} defaultValue='' labelValue='Project'/>
-            <ModalItem inputType={dom.input} defaultValue={info.type} labelValue='Issue type'/>
+            <ModalItem inputType={dom.input} defaultValue={info.Type} labelValue='Issue type'/>
             <ModalItem inputType={dom.input} defaultValue={info.Title} labelValue='Summary'/>
             <ModalItem inputType={dom.input} defaultValue={info.Priority} labelValue='Priority'/>
             <ModalItem inputType={dom.input} defaultValue={info['Affect Versions']} labelValue='Affect Version/s'/>
