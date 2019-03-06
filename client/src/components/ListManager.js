@@ -7,7 +7,14 @@ class ListManager extends Component {
     let itemInfo = this.getListItems(),
       listItems;
 
-    listItems = itemInfo.map((info, index) => <ListItem onItemClick={this.props.onItemClick} info={info} key={index} />);
+    listItems = itemInfo.map((info, index) => <ListItem 
+      onItemClick={this.props.onItemClick}
+      onItemDelete={this.props.onItemDelete}
+      info={info}
+      index={index}
+      key={index} 
+    />);
+
     return (
       <div className='list-manager'>
         <div className='list-item-container'>
