@@ -6,7 +6,6 @@ const axios = require('axios');
 const apiRouter = require('./routes/api');
 
 //create instances
-console.log(apiRouter);
 const app = express();
 
 // use middlewares

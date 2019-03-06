@@ -41,7 +41,6 @@ class Login extends Component {
     });
     localStorage.setItem('jiraReporterUser', username);
     localStorage.setItem('jiraReporterPassword', password);
-    // this.props.onUserAuth && this.props.onUserAuth();
   }
 }
 
