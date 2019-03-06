@@ -1,0 +1,12 @@
+.header {
+    background-color: #20202A;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(20px + 2vmin);
+    color: #87F1FF;
+    font-weight: 500;
+  }
