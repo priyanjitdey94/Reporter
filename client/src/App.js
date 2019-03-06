@@ -37,8 +37,7 @@ class App extends Component {
   }
   
   isSessionPresent = () => {
-    return true;
-    // return !!(localStorage.getItem('jiraReporterUser'));
+    return !!(localStorage.getItem('jiraReporterUser'));
   }
 
   onItemClick = (ticketInfo) => {

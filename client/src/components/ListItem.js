@@ -8,9 +8,14 @@ class ListItem extends Component {
     }
   }
   render () {
+    let { info } = this.props, 
+      type = info.type || 'Bug',
+      description = info.description || '';
     return (
       <div className='list-item' onClick={() => {this.handleClick()}}>
-        {JSON.stringify(this.props.info, null, 4)}
+        <div className='issue-type'>{type}</div>
+        <div className='issue-description'>{description}</div>
+        <div className='issue-delete'>X</div>
       </div>
     );
   }

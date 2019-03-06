@@ -39,8 +39,8 @@ class Login extends Component {
     }).catch(function (err) {
       console.log(err);
     });
-    // localStorage.setItem('jiraReporterUser', username);
-    // localStorage.setItem('jiraReporterPassword', password);
+    localStorage.setItem('jiraReporterUser', username);
+    localStorage.setItem('jiraReporterPassword', password);
     // this.props.onUserAuth && this.props.onUserAuth();
   }
 }
