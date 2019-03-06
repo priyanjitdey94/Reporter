@@ -7,7 +7,7 @@ class Uploader extends Component {
     let { csvFile, updateCSVFile, processCSV } = this.props;
     return (
       <div className='uploader'>
-        <label for="upload-input" class="custom-file-upload">
+        <label htmlFor="upload-input" className="custom-file-upload">
         <input type='file'
           id='upload-input'
           accept='.csv'
