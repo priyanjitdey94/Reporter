@@ -18,9 +18,8 @@ class App extends Component {
       bodyVisual,
       modal;
 
-    // bodyVisual = userInfo ? <Content onItemClick={this.onItemClick} /> : <Login onUserAuth={this.onUserAuth} />;
     if (userInfo) {
-      bodyVisual = <Content onItemClick={this.onItemClick} />;
+    bodyVisual = <Content onItemClick={this.onItemClick} />;
       if (ticketInfo) {
         modal = <Modal info={this.state.ticketInfo} onClickHandler={this.onItemClick} />
       }

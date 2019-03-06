@@ -20,6 +20,9 @@ class ListManager extends Component {
         <div className='list-item-container'>
           {listItems}
         </div>
+        <div id='log-btn'>
+          <button className={this.props.showList ? 'btn': 'hide'} onClick={ () => {this.props.logIssue(this.props.data)}}>Log Issues</button>
+        </div>
       </div>
     );
   }
