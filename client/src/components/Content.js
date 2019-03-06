@@ -85,7 +85,7 @@ export default class Content extends Component {
               "issuetype": {
                   "id": "10202"
               },
-              "description": issue.Description
+              "description": ''
           }
         }
       return issueObject;

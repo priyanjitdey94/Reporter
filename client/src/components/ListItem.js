@@ -11,7 +11,6 @@ class ListItem extends Component {
     let { info } = this.props, 
       type = info.Type || 'Bug',
       title = info.Title || '';
-      debugger
     return (
       <div className='list-item' onClick={() => {this.handleClick()}}>
         <div className='issue-type'>{type}</div>
