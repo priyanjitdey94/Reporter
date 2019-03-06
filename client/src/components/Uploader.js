@@ -13,7 +13,7 @@ class Uploader extends Component {
           onChange={updateCSVFile}>
         </input>
         <br></br>
-        <button className={csvFile ? 'btn' : 'hide'}onClick={processCSV}>Upload</button>
+        <button className={csvFile ? 'btn' : 'hide'} onClick={processCSV}>Upload</button>
      </div>
     )
   }

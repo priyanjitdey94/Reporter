@@ -11,15 +11,20 @@ class ListItem extends Component {
     let { info } = this.props, 
       type = info.Type || 'Bug',
       title = info.Title || '';
-      debugger
     return (
       <div className='list-item' onClick={() => {this.handleClick()}}>
         <div className='issue-type'>{type}</div>
         <div className='issue-title'>{title}</div>
-        <div className='issue-delete'>x</div>
+        <div className='issue-delete' onClick={this.deleteIssue}>x</div>
       </div>
     );
   }
+
+  deleteIssue = (event) => {
+    event.stopPropagation();
+    this.props.onItemDelete(this.props.index);
+  }
+
   handleClick = (value) => {
     this.props.onItemClick(this.props.info);
     // let { isClicked } = this.state;

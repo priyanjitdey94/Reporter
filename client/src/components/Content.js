@@ -11,16 +11,21 @@ export default class Content extends Component {
     this.state = {
       csvFile: undefined,
       showList: undefined,
-      data: undefined,
-      issues: undefined
+      data: undefined,  // raw data
+      issues: undefined // copy of raw data, which is processed and used for creating issues
     }
   }
   render() {
-    let { showList, data, csvFile, issues } = this.state,
+    let { showList, csvFile, issues } = this.state,
       listComponent = '';
 
+    debugger;
     if (showList) {
-      listComponent = <ListManager onItemClick={this.props.onItemClick} data={data}/>
+      listComponent = <ListManager 
+        onItemClick={this.props.onItemClick}
+        onItemDelete={this.onItemDelete}
+        data={issues}
+      />
     }
 
     return (
@@ -91,5 +96,13 @@ export default class Content extends Component {
       return issueObject;
     })
     return {issueUpdates: issueArray};
+  }
+
+  onItemDelete = (delIndex) => {
+    let { issues } = this.state;
+    
+    this.setState({
+      issues: issues.filter((issue, index) => index !== delIndex)
+    });
   }
 }
