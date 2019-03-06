@@ -15,8 +15,7 @@ class Uploader extends Component {
         </input>
         &#8681; Import File
       </label>
-        <br></br>
-        <button className={csvFile ? 'btn' : 'hide'} onClick={processCSV}>Upload</button>
+      <button className={csvFile ? 'btn' : 'hide'} id='upload-btn' onClick={processCSV}>Upload</button>
      </div>
     )
   }

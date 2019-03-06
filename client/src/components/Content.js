@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Papa from 'papaparse';
-import ListManager from './ListManager';
 import Uploader from './Uploader';
 import axios from 'axios';
 import '../css/content.css'
+import IssueManager from './IssueManager';
 
 export default class Content extends Component {
   constructor () {
@@ -20,20 +20,14 @@ export default class Content extends Component {
       listComponent = '';
 
     if (showList) {
-      listComponent = <ListManager 
-        onItemClick={this.props.onItemClick}
-        onItemDelete={this.onItemDelete}
-        data={issues}
-      />
+      listComponent = 
+      <IssueManager showList={showList} issues={issues} onItemClick={this.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue}/>
     }
 
     return (
       <div className='content'>
         <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
         {listComponent}
-        <div id='log-btn'>
-          <button className={showList ? 'btn': 'hide'} onClick={ () => {this.logIssue(issues)}}>Log Issues</button>
-        </div>
       </div>
     );
   }

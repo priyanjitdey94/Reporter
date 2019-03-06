@@ -17,10 +17,8 @@ router.get('/', (req, res) => {
             'Access-Control-Max-Age': 86400,
             'Content-Type': 'application/json'
         }
-    }).then(response => {
-        JSON.stringify(response.data, null, 4);
     }).then((response) => {
-        res.send(response);
+        res.send(JSON.stringify(response.data, null, 4));
     }).catch(function (err) {
         console.log(err);
     });
