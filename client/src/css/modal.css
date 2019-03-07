@@ -18,13 +18,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: white;
   align-items: center;
 }
 
 .modal-header {
   display: flex;
   flex-direction: row-reverse;
-  /* background-color: #d7d9dd; */
   border-radius: 0.5%;
   height: 5%;
   width: 100%
@@ -52,8 +52,7 @@
   padding-top: 20px;
   padding-bottom: 20px;  
   color: black;
-  /* overflow-y: scroll; */
-  /* justify-content: space-between; */
+  overflow-y: scroll;
 }
 
 .data-selector {
@@ -61,6 +60,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 15px; 
 }
 
 .data-label {
@@ -79,11 +79,8 @@
 }
 
 .modal-footer {
-  /* position: fixed; */
-  background-color: #d7d9dd;
   border-radius: 0.5%;
   width: 100%;
-  /* padding: 1%; */
   display: flex;
   flex-direction: row-reverse;
   height: 10%;
@@ -93,10 +90,26 @@
   font-size: 14px;
   height: 35px;
   width: 100px;
-  margin: 10px;
+  margin: 2px;
   border-radius: 5px;
-  background-color: #20202A;
-  color: white;
-  border: 2px solid white;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-footer-apply-button {
+  background-color: #20202A;
+  color: white; 
+}
+.modal-footer-apply-button:hover {
+  background-color: #494959;
+}
+
+.modal-footer-cancel-button {
+  background-color: white;
+  color: #20202A;
+  border: 0px;
+}
+
+.modal-footer-cancel-button:hover {
+  text-decoration: underline;
 }
