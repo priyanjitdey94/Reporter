@@ -25,6 +25,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(req.body);
     axios({
         method: 'post',
         url: 'https://fusioncharts.jira.com/rest/api/2/issue/bulk',
@@ -41,6 +42,7 @@ router.post('/', (req, res) => {
             'Content-Type': 'application/json'
         }
     }).then(response => {
+        console.log(JSON.stringify(response.data, null, 4));
         res.send(JSON.stringify(response.data, null, 4));
     }).catch(function (err) {
         console.log(err);

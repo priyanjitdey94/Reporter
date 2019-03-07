@@ -105,7 +105,13 @@ export default class Content extends Component {
               "issuetype": {
                   "id": "10202"
               },
-              "description": issue.Description,
+              "assignee": {
+                  "name": issue['Assignee'].split(' ')[0].toLowerCase()
+              },
+              "reporter": {
+                  "name": issue['Reporter'].split(' ')[0].toLowerCase()
+              },
+              "description": issue.Description
           }
         }
       return issueObject;
@@ -127,5 +133,28 @@ export default class Content extends Component {
     issues.map((issue) => {
       return issue['Project'] = project;
     });
+
+    issues.map((issues) => {
+      return issues['issueType'] = this.issueTypeFinder(project, issues['Type']);
+    });
+
+    this.setState({
+      issues: issues
+    });
+  }
+
+  issueTypeFinder = (projectKey, issueName) => {
+    let projects = [...this.props.userData.projects], proj, id;
+    projects.forEach((project) => {
+      if(project.key === projectKey) {
+        proj = project;
+        project.issuetypes.forEach((issuetype) => {
+          if(issueName === issuetype.name) {
+            id = issuetype.id;
+          }
+        });
+      }
+    });
+    return id || proj.issuetypes[0].id;
   }
 }
