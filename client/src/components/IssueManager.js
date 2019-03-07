@@ -5,8 +5,8 @@ import '../css/issuemanager.css';
 
 export default class IssueManager extends Component {
   render() {
-      let {showList, onItemClick, onItemDelete, issues, logIssue, 
-        userData, setProjectInIssues, issueIdMap} = this.props;
+    let {showList, onItemClick, onItemDelete, issues, logIssue, 
+      userData, setProjectInIssues, issueIdMap, project} = this.props;
     return (
       <div className='issue-manager'>
         <SideBar userData={userData} setProjectInIssues={setProjectInIssues}/>
@@ -17,6 +17,7 @@ export default class IssueManager extends Component {
         onItemDelete={onItemDelete}
         logIssue = {logIssue}
         data={issues}
+        project={project}
         />
       </div>
     )

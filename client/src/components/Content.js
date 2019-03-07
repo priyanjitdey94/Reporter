@@ -21,7 +21,8 @@ export default class Content extends Component {
         idToIssue: {},
         issueToId: {}
       },
-      project: ''
+      project: '',
+      versions: ''
     }
   }
   render() {
@@ -47,17 +48,17 @@ export default class Content extends Component {
         onItemClick={this.onItemClick} 
         onItemDelete={this.onItemDelete} 
         logIssue={this.logIssue} 
-        setProjectInIssues={this.setProjectInIssues}/>
+        setProjectInIssues={this.setProjectInIssues}
+        project={project}
+        />
     }
 
     return (
-      <div>
         <div className='content'>
           <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
           {listComponent}
+          {modal}
         </div>
-        {modal}
-      </div>
     );
   }
 
@@ -96,11 +97,12 @@ export default class Content extends Component {
 
   updateData = result => {
     var data = result.data;
+    debugger
     data = data.map(datum => cleanse(datum));
     this.setState({
       showList: true,
       data,
-      issues: [...data]
+      issues: data.map(datum => Object.assign({}, datum))
     });
   }
 
@@ -132,9 +134,9 @@ export default class Content extends Component {
               "assignee": {
                   "name": issue['Assignee'].split(' ')[0].toLowerCase()
               },
-              // "reporter": {
-              //     "name": issue['Reporter'].split(' ')[0].toLowerCase()
-              // },
+              "reporter": {
+                  "name": issue['Reporter'].split(' ')[0].toLowerCase()
+              },
               "description": issue.Description
           }
         }
@@ -154,7 +156,7 @@ export default class Content extends Component {
   setProjectInIssues = (projKey) => {
     let issues = [...this.state.issues],
       {userData} = this.props,
-      {issueIdMap} = this.state,
+      {issueIdMap, data} = this.state,
       project = userData.projects.find(project => project.key === projKey),
       issuetypes = project.issuetypes;
 
@@ -166,16 +168,31 @@ export default class Content extends Component {
       issueIdMap.issueToId[issuetype.name] = issuetype.id;
       issueIdMap.idToIssue[issuetype.id] = issuetype.name;
     });
-    issues = issues.map((issue) => {
+    issues = issues.map((issue, index) => {
       issue.project = projKey;
-      issue.issuetype = issueIdMap.issueToId[issue.issuetype] || issue.issuetype;
+      issue.issuetype = issueIdMap.issueToId[issue.issuetype] || issueIdMap.issueToId[data[index].issuetype];
       return issue;
     });
 
     this.setState({
-      issues,
       project,
-      issueIdMap
+      issueIdMap,
+      issues
+    });
+    axios({
+      method: 'get',
+      url: 'http://localhost:4000/jira/versions',
+      params: {
+        username: localStorage.getItem('jiraReporterUser'),
+        password: localStorage.getItem('jiraReporterPassword'),
+        projKey
+      },
+    }).then((response) => {
+      this.setState({
+        versions: response.data
+      });
+    }).catch(function (err) {
+      console.log(err);
     });
   }
 }

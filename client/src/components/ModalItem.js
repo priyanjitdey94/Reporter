@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import '../css/modal.css'
 
 const colourStyles = {
   control: styles => ({ 
