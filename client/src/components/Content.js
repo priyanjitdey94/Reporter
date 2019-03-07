@@ -19,7 +19,7 @@ export default class Content extends Component {
     }
   }
   render() {
-    let { showList, csvFile, issues, modalInfo } = this.state,
+    let { showList, csvFile, issues, modalInfo, project } = this.state,
       listComponent = '',
       modal;
 
@@ -34,7 +34,9 @@ export default class Content extends Component {
         onItemClick={this.onItemClick} 
         onItemDelete={this.onItemDelete} 
         logIssue={this.logIssue} 
-        setProjectInIssues={this.setProjectInIssues}/>
+        setProjectInIssues={this.setProjectInIssues}
+        project={project}
+        />
     }
 
     return (
