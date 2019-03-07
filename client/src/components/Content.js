@@ -12,7 +12,8 @@ export default class Content extends Component {
       csvFile: undefined,
       showList: undefined,
       data: undefined,  // raw data
-      issues: undefined // copy of raw data, which is processed and used for creating issues
+      issues: undefined, // copy of raw data, which is processed and used for creating issues
+      project: ''
     }
   }
   render() {
@@ -61,6 +62,7 @@ export default class Content extends Component {
   logIssue = issues => {
     let issueJSON= this.createJSON(issues),
     postData = Object.assign({}, {username: localStorage.getItem('jiraReporterUser'), password: localStorage.getItem('jiraReporterPassword')}, {issueJSON});
+    console.log(JSON.stringify(issueJSON, null, 4));
     axios({
       method: 'post',
       url: 'http://localhost:4000/jira',
@@ -81,14 +83,14 @@ export default class Content extends Component {
               },
               "summary": issue.Title,
               "issuetype": {
-                  "id": "10202"
+                  "id": issue.issueType
               },
               "assignee": {
                   "name": issue['Assignee'].split(' ')[0].toLowerCase()
               },
-              "reporter": {
-                  "name": issue['Reporter'].split(' ')[0].toLowerCase()
-              },
+              // "reporter": {
+              //     "name": issue['Reporter'].split(' ')[0].toLowerCase()
+              // },
               "description": issue.Description
           }
         }
@@ -105,19 +107,26 @@ export default class Content extends Component {
     });
   }
 
-  setProjectInIssues = (project) => {
+  setProjectInIssues = (projKey) => {
     let issues = [...this.state.issues];
 
     issues.map((issue) => {
-      return issue['Project'] = project;
+      return issue['Project'] = projKey;
     });
 
     issues.map((issues) => {
-      return issues['issueType'] = this.issueTypeFinder(project, issues['Type']);
+      return issues['issueType'] = this.issueTypeFinder(projKey, issues['Type']);
     });
 
+    this.props.userData.projects.forEach((project) => {
+      if (project.key === projKey) {
+        this.setState({
+          project
+        })
+      }
+    })
     this.setState({
-      issues: issues
+      issues
     });
   }
 
