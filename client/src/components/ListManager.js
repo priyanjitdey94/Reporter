@@ -14,6 +14,7 @@ class ListManager extends Component {
       index={index}
       key={index} 
     />);
+    
     return (
       <div className={this.props.project ? 'list-manager' : 'hide'}>
         <div className='list-item-container'>

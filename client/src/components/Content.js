@@ -10,11 +10,11 @@ export default class Content extends Component {
   constructor () {
     super();
     this.state = {
-      csvFile: undefined,
-      showList: undefined,
-      modalInfo: undefined,
-      data: undefined,  // raw data
-      issues: undefined, // copy of raw data, which is processed and used for creating issues
+      csvFile: '',
+      showList: '',
+      modalInfo: '',
+      data: '',  // raw data
+      issues: '', // copy of raw data, which is processed and used for creating issues
       project: '',
       versions: ''
     }
@@ -41,13 +41,11 @@ export default class Content extends Component {
     }
 
     return (
-      <div>
         <div className='content'>
           <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
           {listComponent}
+          {modal}
         </div>
-        {modal}
-      </div>
     );
   }
 
