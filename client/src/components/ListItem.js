@@ -8,9 +8,9 @@ class ListItem extends Component {
     }
   }
   render () {
-    let { info } = this.props, 
-      type = info.Type || 'Bug',
-      title = info.Title || '';
+    let { info, issueIdMap } = this.props, 
+      type = (Object.keys(issueIdMap.idToIssue).length && issueIdMap.idToIssue[info.issuetype]) || '_Bug',
+      title = info.summary || '';
     return (
       <div className='list-item' onClick={() => {this.handleClick()}}>
         <div className='issue-type'>{type}</div>
@@ -26,7 +26,7 @@ class ListItem extends Component {
   }
 
   handleClick = (value) => {
-    this.props.onItemClick(this.props.info);
+    this.props.onItemClick(this.props.info, this.props.index);
     // let { isClicked } = this.state;
     // this.setState({isClicked: !isClicked});
   }

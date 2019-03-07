@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import ModalItem from './ModalItem';
 import '../css/modal.css';
 
-const project = 'project',
-  issuetype = 'issuetype',
-  summary = 'summary',
-  priority = 'priority',
-  affectversions = 'affectversions',
-  assignee = 'assignee',
-  reviewer = 'reviewer',
-  reporter = 'reporter',
-  testdata = 'testdata',
+const ISSUETYPE = 'issuetype',
+  SUMMARY = 'summary',
+  PRIORITY = 'priority',
+  AFFECTEDVERSIONS = 'affectversions',
+  ASSIGNEE = 'assignee',
+  REVIEWER = 'reviewer',
+  REPORTER = 'reporter',
+  TESTDATA = 'testdata',
   dom = {
     input: {
       dom: 'input',
@@ -23,50 +22,38 @@ const project = 'project',
       dom: 'textarea'
     }
   },
-  bugTypeOptions = [{
-    value: 'bug',
-    label: 'Bug'
-  },{
-    value: 'new feature',
-    label: 'New feature'
-  }, {
-    value: 'improvement',
-    label: 'Improvement'
-  }, {
-    value: 'task',
-    label: 'Task'
-  }, {
-    value: 'reasearch or planning task',
-    label: 'Research or Planning task'
-  }, {
-    value: 'review or qa task',
-    label: 'Review or QA task'
-  }, {
-    value: 'diagnosis',
-    label: 'Diagnosis'
-  }, {
-    value: 'epic',
-    label: 'Epic'
-  }, {
-    value: 'story',
-    label: 'Story'
-  }],
   priorityOptions = [{
-    value: 'blocker',
+    value: '1',
     label: 'Blocker'
   }, {
-    value: 'critical',
+    value: '2',
     label: 'Critical'
   }, {
-    value: 'major',
+    value: '3',
     label: 'Major'
   }, {
-    value: 'minor',
+    value: '4',
     label: 'Major'
   }, {
-    value: 'trivial',
+    value: '5',
     label: 'Trivial'
-  }];
+  }], 
+  getIssueTypes = issuetypes => {
+    return issuetypes.map(issuetype => {
+      return {
+        value: issuetype.id,
+        label: issuetype.name
+      };
+    })
+  },
+  getPriorityId = priority => {
+    let i, len;
+    for (i = 0, len = priorityOptions.length; i < len; i++) {
+      if (priority === priorityOptions[i].label) {
+        return priorityOptions[i].value;
+      }
+    }
+  };
 
 class Modal extends Component {
   constructor (props) {
@@ -74,20 +61,19 @@ class Modal extends Component {
     
     let info = props.info;
     this.state = {
-      [project]: info.project || '',
-      [issuetype]: info.Type || '',
-      [summary]: info.Title || '',
-      [priority]: info.Priority || '',
-      [affectversions]: info['Affect Versions'] || '',
-      [assignee]: info.Assignee || '',
-      [reviewer]: info.Reviewer || '',
-      [reporter]: info.Reporter || '',
-      [testdata]: info['Test Data'] || {}
+      [ISSUETYPE]: info.issuetype || '',
+      [SUMMARY]: info.summary || '',
+      [PRIORITY]: getPriorityId(info.priority) || '',
+      [AFFECTEDVERSIONS]: info.affectversions || '',
+      [ASSIGNEE]: info.assignee || '',
+      [REVIEWER]: info.reviewer || '',
+      [REPORTER]: info.reporter || '',
+      [TESTDATA]: info.testdata || {}
     };
   }
   render () {
-    let { info } = this.props,
-      description = JSON.stringify(JSON.parse(info['Test Data']), undefined, 4);
+    let { info, project, issueIdMap } = this.props,
+      description = JSON.stringify(JSON.parse(info.testdata), undefined, 4);
     return (
       <div className='modal-background'>
         <div className='modal-container'>
@@ -96,53 +82,47 @@ class Modal extends Component {
           </div>
           <div className='modal-body'>
             <ModalItem 
-              inputType={dom.select}
-              defaultValue={{value: 'RED', label: 'RED'}} 
-              id={project}
-              onChange={this.updateInfo}
-              labelValue='Project'/>
-            <ModalItem 
               inputType={dom.select} 
-              options={bugTypeOptions} 
-              defaultValue={{value: info.Type, label: info.Type}} 
-              id={issuetype}
+              options={getIssueTypes(project.issuetypes)} 
+              defaultValue={{value: info.issuetype, label: issueIdMap.idToIssue[info.issuetype]}} 
+              id={ISSUETYPE}
               onChange={this.updateInfo}
               labelValue='Issue type'/>
             <ModalItem 
               inputType={dom.input} 
-              defaultValue={info.Title} 
-              id={summary}
+              defaultValue={info.summary} 
+              id={SUMMARY}
               onChange={this.updateInfo}
               labelValue='Summary'/>
             <ModalItem 
               inputType={dom.select} 
               options={priorityOptions} 
-              defaultValue={{value: info.Priority, label: info.Priority}} 
-              id={priority}
+              defaultValue={{value: priorityOptions.find(option => option.label === info.priority), label: info.priority}} 
+              id={PRIORITY}
               onChange={this.updateInfo}
               labelValue='Priority'/>
             <ModalItem 
               inputType={dom.input} 
-              defaultValue={info['Affect Versions']} 
-              id={affectversions}
+              defaultValue={info.affectversions} 
+              id={AFFECTEDVERSIONS}
               onChange={this.updateInfo}
               labelValue='Affect Version/s'/>
             <ModalItem 
               inputType={dom.input} 
-              defaultValue={info.Assignee} 
-              id={assignee}
+              defaultValue={info.assignee} 
+              id={ASSIGNEE}
               onChange={this.updateInfo}
               labelValue='Assignee'/>
             <ModalItem 
               inputType={dom.input} 
-              defaultValue={info.Reviewer} 
-              id={reviewer}
+              defaultValue={info.reviewer} 
+              id={REVIEWER}
               onChange={this.updateInfo}
               labelValue='Reviewer'/>
             <ModalItem 
               inputType={dom.input} 
-              defaultValue={info.Reporter} 
-              id={reporter}
+              defaultValue={info.reporter} 
+              id={REPORTER}
               onChange={this.updateInfo}
               labelValue='Reporter'/>
             <ModalItem 
@@ -150,13 +130,13 @@ class Modal extends Component {
               classNames={{input: 'data-textarea'}} 
               config={{rows: 20, cols: 30}} 
               defaultValue={description} 
-              id={testdata}
+              id={TESTDATA}
               onChange={this.updateInfo}
               labelValue='Description'/>
           </div>
           <div className='modal-footer'>
             <button className='modal-footer-button modal-footer-cancel-button'  onClick={this.handler} >Cancel</button>
-            <button className='modal-footer-button modal-footer-apply-button'>Apply</button>
+            <button className='modal-footer-button modal-footer-apply-button' onClick={this.submitHandler}>Apply</button>
           </div>
         </div>
       </div>
@@ -169,11 +149,26 @@ class Modal extends Component {
     });
   }
   handler = () => {
-    if (this.validateInput()) {
-      this.props.onClickHandler();
-    } else {
-      console.log('Invalid Input');
-    }
+    this.props.onClickHandler();
+  }
+
+  submitHandler = () => {
+    let retObj,
+      {issuetype, summary, priority, affectversions, assignee, reviewer, reporter, testdata} = this.state;
+
+    retObj = Object.assign({
+      [ISSUETYPE]: issuetype,
+      [SUMMARY]: summary,
+      [PRIORITY]: priority,
+      [AFFECTEDVERSIONS]: affectversions,
+      [ASSIGNEE]: assignee,
+      [REVIEWER]: reviewer,
+      [REPORTER]: reporter,
+      [TESTDATA]: testdata
+    });
+
+    this.props.onApply(retObj, this.props.index);
+    this.handler();
   }
 
   validateInput = () => {

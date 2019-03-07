@@ -41,7 +41,6 @@ class App extends Component {
   }
 
   handleUserData = (value) => {
-    console.log(value);
     this.setState({
       userData: value
     })

@@ -38,6 +38,9 @@ class ModalItem extends Component {
         inputType = <input 
           type={inputType.type} 
           className={classNames.input} 
+          onChange={
+            (event) => this.props.onChange(this.props.id, event.target.value)
+          }
           defaultValue={defaultValue}></input>; 
           break;
       case 'textarea': 

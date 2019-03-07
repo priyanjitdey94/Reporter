@@ -31,7 +31,6 @@ class Login extends Component {
       password
     }
     }).then((response) => {
-      console.log(response);
       this.props.handleUserData(response.data);
 
       if (response.statusText === 'OK'){

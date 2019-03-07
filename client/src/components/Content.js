@@ -5,31 +5,44 @@ import axios from 'axios';
 import '../css/content.css'
 import IssueManager from './IssueManager';
 import Modal from './Modal';
+import { cleanse } from '../utils/utility';
 
 export default class Content extends Component {
   constructor () {
     super();
     this.state = {
-      csvFile: undefined,
-      showList: undefined,
-      modalInfo: undefined,
-      data: undefined,  // raw data
-      issues: undefined, // copy of raw data, which is processed and used for creating issues
+      csvFile: '',
+      showList: '',
+      modalInfo: '',
+      modalIndex: '',
+      data: '',  // raw data
+      issues: '', // copy of raw data, which is processed and used for creating issues
+      issueIdMap: {
+        idToIssue: {},
+        issueToId: {}
+      },
       project: ''
     }
   }
   render() {
-    let { showList, csvFile, issues, modalInfo } = this.state,
+    let { showList, csvFile, issues, modalInfo, modalIndex, project, issueIdMap } = this.state,
       listComponent = '',
       modal;
 
     if (modalInfo) {
-      modal = <Modal info={modalInfo} onClickHandler={this.onItemClick} />
+      modal = <Modal 
+        info={modalInfo} 
+        index={modalIndex} 
+        project={project} 
+        issueIdMap={issueIdMap}
+        onClickHandler={this.onItemClick} 
+        onApply={this.updateIssueInfoFromModal}/>
     }
     if (showList) {
       listComponent = <IssueManager 
         showList={showList} 
         issues={issues} 
+        issueIdMap={issueIdMap}
         userData={this.props.userData} 
         onItemClick={this.onItemClick} 
         onItemDelete={this.onItemDelete} 
@@ -48,12 +61,21 @@ export default class Content extends Component {
     );
   }
 
-  onItemClick = (modalInfo) => {
+  onItemClick = (modalInfo, modalIndex) => {
     this.setState({
-      modalInfo
+      modalInfo,
+      modalIndex
     });
   }
 
+  updateIssueInfoFromModal = (info, index) => {
+    let {issues} = this.state;
+
+    issues[index] = info;
+    this.setState({
+      issues
+    });
+  }
 
   updateCSVFile = event => {
     let csvFile = event.target && event.target.files && event.target.files[0];
@@ -74,6 +96,7 @@ export default class Content extends Component {
 
   updateData = result => {
     var data = result.data;
+    data = data.map(datum => cleanse(datum));
     this.setState({
       showList: true,
       data,
@@ -84,7 +107,6 @@ export default class Content extends Component {
   logIssue = issues => {
     let issueJSON= this.createJSON(issues),
     postData = Object.assign({}, {username: localStorage.getItem('jiraReporterUser'), password: localStorage.getItem('jiraReporterPassword')}, {issueJSON});
-    console.log(JSON.stringify(issueJSON, null, 4));
     axios({
       method: 'post',
       url: 'http://localhost:4000/jira',
@@ -130,40 +152,30 @@ export default class Content extends Component {
   }
 
   setProjectInIssues = (projKey) => {
-    let issues = [...this.state.issues];
+    let issues = [...this.state.issues],
+      {userData} = this.props,
+      {issueIdMap} = this.state,
+      project = userData.projects.find(project => project.key === projKey),
+      issuetypes = project.issuetypes;
 
-    issues.map((issue) => {
-      return issue['Project'] = projKey;
+    issueIdMap = {
+      idToIssue: {},
+      issueToId: {}
+    };
+    issuetypes.forEach(issuetype => {
+      issueIdMap.issueToId[issuetype.name] = issuetype.id;
+      issueIdMap.idToIssue[issuetype.id] = issuetype.name;
+    });
+    issues = issues.map((issue) => {
+      issue.project = projKey;
+      issue.issuetype = issueIdMap.issueToId[issue.issuetype] || issue.issuetype;
+      return issue;
     });
 
-    issues.map((issues) => {
-      return issues['issueType'] = this.issueTypeFinder(projKey, issues['Type']);
-    });
-
-    this.props.userData.projects.forEach((project) => {
-      if (project.key === projKey) {
-        this.setState({
-          project
-        })
-      }
-    })
     this.setState({
-      issues
+      issues,
+      project,
+      issueIdMap
     });
-  }
-
-  issueTypeFinder = (projectKey, issueName) => {
-    let projects = [...this.props.userData.projects], proj, id;
-    projects.forEach((project) => {
-      if(project.key === projectKey) {
-        proj = project;
-        project.issuetypes.forEach((issuetype) => {
-          if(issueName === issuetype.name) {
-            id = issuetype.id;
-          }
-        });
-      }
-    });
-    return id || proj.issuetypes[0].id;
   }
 }

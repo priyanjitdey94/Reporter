@@ -5,12 +5,14 @@ import '../css/issuemanager.css';
 
 export default class IssueManager extends Component {
   render() {
-      let {showList, onItemClick, onItemDelete, issues, logIssue, userData, setProjectInIssues} = this.props;
+      let {showList, onItemClick, onItemDelete, issues, logIssue, 
+        userData, setProjectInIssues, issueIdMap} = this.props;
     return (
       <div className='issue-manager'>
         <SideBar userData={userData} setProjectInIssues={setProjectInIssues}/>
         <ListManager 
         showList= {showList}
+        issueIdMap={issueIdMap}
         onItemClick= {onItemClick}
         onItemDelete={onItemDelete}
         logIssue = {logIssue}

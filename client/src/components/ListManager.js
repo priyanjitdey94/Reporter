@@ -4,12 +4,14 @@ import '../css/listmanager.css';
 
 class ListManager extends Component {
   render () {
-    let itemInfo = this.getListItems(),
+    let {onItemClick, onItemDelete, issueIdMap, showList, logIssue, data} = this.props,
+      itemInfo = this.getListItems(),
       listItems;
 
     listItems = itemInfo.map((info, index) => <ListItem 
-      onItemClick={this.props.onItemClick}
-      onItemDelete={this.props.onItemDelete}
+      onItemClick={onItemClick}
+      onItemDelete={onItemDelete}
+      issueIdMap={issueIdMap}
       info={info}
       index={index}
       key={index} 
@@ -20,7 +22,7 @@ class ListManager extends Component {
           {listItems}
         </div>
         <div id='log-btn'>
-          <button className={this.props.showList ? 'btn': 'hide'} onClick={ () => {this.props.logIssue(this.props.data)}}>Log Issues</button>
+          <button className={showList ? 'btn': 'hide'} onClick={ () => {logIssue(data)}}>Log Issues</button>
         </div>
       </div>
     );
