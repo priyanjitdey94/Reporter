@@ -70,14 +70,42 @@ class Modal extends Component {
             <button className='modal-header-button'  onClick={this.handler} >X</button>
           </div>
           <div className='modal-body'>
-            <ModalItem inputType={dom.select} defaultValue={{value: 'RED', label: 'RED'}} labelValue='Project'/>
-            <ModalItem inputType={dom.select} options={bugTypeOptions} defaultValue={{value: info.Type, label: info.Type}} labelValue='Issue type'/>
-            <ModalItem inputType={dom.input} defaultValue={info.Title} labelValue='Summary'/>
-            <ModalItem inputType={dom.select} options={priorityOptions} defaultValue={{value: info.Priority, label: info.Priority}} labelValue='Priority'/>
-            <ModalItem inputType={dom.input} defaultValue={info['Affect Versions']} labelValue='Affect Version/s'/>
-            <ModalItem inputType={dom.input} defaultValue={info.Assignee} labelValue='Assignee'/>
-            <ModalItem inputType={dom.input} defaultValue={info.Reviewer} labelValue='Reviewer'/>
-            <ModalItem inputType={dom.textarea} classNames={{input: 'data-textarea'}} config={{rows: 20, cols: 30}} defaultValue={description} labelValue='Description'/>
+            <ModalItem 
+              inputType={dom.select}
+              defaultValue={{value: 'RED', label: 'RED'}} 
+              labelValue='Project'/>
+            <ModalItem 
+              inputType={dom.select} 
+              options={bugTypeOptions} 
+              defaultValue={{value: info.Type, label: info.Type}} 
+              labelValue='Issue type'/>
+            <ModalItem 
+              inputType={dom.input} 
+              defaultValue={info.Title} 
+              labelValue='Summary'/>
+            <ModalItem 
+              inputType={dom.select} 
+              options={priorityOptions} 
+              defaultValue={{value: info.Priority, label: info.Priority}} 
+              labelValue='Priority'/>
+            <ModalItem 
+              inputType={dom.input} 
+              defaultValue={info['Affect Versions']} 
+              labelValue='Affect Version/s'/>
+            <ModalItem 
+              inputType={dom.input} 
+              defaultValue={info.Assignee} 
+              labelValue='Assignee'/>
+            <ModalItem 
+              inputType={dom.input} 
+              defaultValue={info.Reviewer} 
+              labelValue='Reviewer'/>
+            <ModalItem 
+              inputType={dom.textarea} 
+              classNames={{input: 'data-textarea'}} 
+              config={{rows: 20, cols: 30}} 
+              defaultValue={description} 
+              labelValue='Description'/>
           </div>
           <div className='modal-footer'>
             <button className='modal-footer-button modal-footer-cancel-button'  onClick={this.handler} >Cancel</button>

@@ -22,9 +22,26 @@ class ModalItem extends Component {
     config = config || {};
     // decide type of the input
     switch (inputType.dom) {
-      case 'select': inputType = <Select styles={colourStyles} defaultValue={defaultValue} options={options} isSearchable={true}/>; break;
-      case 'input': inputType = <input type={inputType.type} className={classNames.input} defaultValue={defaultValue}></input>; break;
-      case 'textarea': inputType = <textarea className={classNames.input || 'data-textarea'} rows={config.rows} col={config.cols} defaultValue={defaultValue}></textarea>; break;
+      case 'select': 
+        inputType = <Select 
+          styles={colourStyles} 
+          defaultValue={defaultValue} 
+          options={options} 
+          isSearchable={true}/>;
+          break;
+      case 'input': 
+        inputType = <input 
+          type={inputType.type} 
+          className={classNames.input} 
+          defaultValue={defaultValue}></input>; 
+          break;
+      case 'textarea': 
+        inputType = <textarea 
+          className={classNames.input || 'data-textarea'} 
+          rows={config.rows} 
+          col={config.cols} 
+          defaultValue={defaultValue}></textarea>; 
+          break;
       default: inputType = undefined;
     }
 
