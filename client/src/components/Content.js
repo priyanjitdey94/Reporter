@@ -21,7 +21,7 @@ export default class Content extends Component {
 
     if (showList) {
       listComponent = 
-      <IssueManager showList={showList} issues={issues} onItemClick={this.props.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue}/>
+      <IssueManager showList={showList} issues={issues} userData={this.props.userData} onItemClick={this.props.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue} setProjectInIssues={this.setProjectInIssues}/>
     }
 
     return (
@@ -77,13 +77,13 @@ export default class Content extends Component {
         let issueObject = {
           "fields": {
               "project": {
-                  "key": "TEST"
+                  "key": issue.Project
               },
               "summary": issue.Title,
               "issuetype": {
                   "id": "10202"
               },
-              "description": ''
+              "description": issue.Description,
           }
         }
       return issueObject;
@@ -96,6 +96,14 @@ export default class Content extends Component {
     
     this.setState({
       issues: issues.filter((issue, index) => index !== delIndex)
+    });
+  }
+
+  setProjectInIssues = (project) => {
+    let issues = [...this.state.issues];
+
+    issues.map((issue) => {
+      return issue['Project'] = project;
     });
   }
 }

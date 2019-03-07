@@ -32,6 +32,8 @@ class Login extends Component {
     }
     }).then((response) => {
       console.log(response);
+      this.props.handleUserData(response.data);
+
       if (response.statusText === 'OK'){
         this.props.onUserAuth(true);
       } else {
@@ -40,8 +42,9 @@ class Login extends Component {
     }).catch(function (err) {
       console.log(err);
     });
-    localStorage.setItem('jiraReporterUser', username);
-    localStorage.setItem('jiraReporterPassword', password);
+
+    // localStorage.setItem('jiraReporterUser', username);
+    // localStorage.setItem('jiraReporterPassword', password);
   }
 }
 
