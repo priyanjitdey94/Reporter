@@ -14,7 +14,6 @@ class ListManager extends Component {
       index={index}
       key={index} 
     />);
-
     return (
       <div className='list-manager'>
         <div className='list-item-container'>
