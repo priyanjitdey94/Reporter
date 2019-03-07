@@ -25,7 +25,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.body);
     axios({
         method: 'post',
         url: 'https://fusioncharts.jira.com/rest/api/2/issue/bulk',
@@ -49,5 +48,28 @@ router.post('/', (req, res) => {
     });
 
 });
+
+router.get('/versions', (req, res) => {
+    console.log(req.query);
+    axios({
+        method: 'get',
+        url: `https://fusioncharts.jira.com/rest/api/2/project/${req.query.projKey}/versions`,
+        auth: {
+            username: req.query.username,
+            password: req.query.password
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+            'Access-Control-Max-Age': 86400,
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => {
+        res.send(JSON.stringify(response.data, null, 4));
+    }).catch(function (err) {
+        console.log(err);
+    });
+})
 
 module.exports = router;

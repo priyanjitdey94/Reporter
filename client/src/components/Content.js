@@ -15,7 +15,8 @@ export default class Content extends Component {
       modalInfo: undefined,
       data: undefined,  // raw data
       issues: undefined, // copy of raw data, which is processed and used for creating issues
-      project: ''
+      project: '',
+      versions: ''
     }
   }
   render() {
@@ -112,9 +113,9 @@ export default class Content extends Component {
               "assignee": {
                   "name": issue['Assignee'].split(' ')[0].toLowerCase()
               },
-              // "reporter": {
-              //     "name": issue['Reporter'].split(' ')[0].toLowerCase()
-              // },
+              "reporter": {
+                  "name": issue['Reporter'].split(' ')[0].toLowerCase()
+              },
               "description": issue.Description
           }
         }
@@ -146,12 +147,28 @@ export default class Content extends Component {
       if (project.key === projKey) {
         this.setState({
           project
-        })
+        });
       }
-    })
+    });
+
     this.setState({
       issues
     });
+    axios({
+      method: 'get',
+      url: 'http://localhost:4000/jira/versions',
+      params: {
+        username: localStorage.getItem('jiraReporterUser'),
+        password: localStorage.getItem('jiraReporterPassword'),
+        projKey
+      },
+      }).then((response) => {
+        this.setState({
+          versions: response.data
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
   }
 
   issueTypeFinder = (projectKey, issueName) => {
