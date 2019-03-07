@@ -10,21 +10,22 @@ class App extends Component {
     super();
     this.state = {
       userInfo: this.isSessionPresent(),
-      ticketInfo: undefined
+      ticketInfo: undefined,
+      userData: ''
     };
   }
   render() {
-    let { userInfo, ticketInfo } = this.state,
+    let { userInfo, ticketInfo, userData } = this.state,
       bodyVisual,
       modal;
 
     if (userInfo) {
-    bodyVisual = <Content onItemClick={this.onItemClick} />;
+    bodyVisual = <Content onItemClick={this.onItemClick} userData={userData}/>;
       if (ticketInfo) {
         modal = <Modal info={this.state.ticketInfo} onClickHandler={this.onItemClick} />
       }
     } else {
-      bodyVisual = <Login onUserAuth={this.onUserAuth} />;
+      bodyVisual = <Login onUserAuth={this.onUserAuth} handleUserData={this.handleUserData}/>;
     }
     return (
       <div className="App">
@@ -49,6 +50,12 @@ class App extends Component {
     this.setState({
       userInfo: value
     });
+  }
+
+  handleUserData = (value) => {
+    this.setState({
+      userData: value
+    })
   }
 }
 

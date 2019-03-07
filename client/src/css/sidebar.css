@@ -1,10 +1,14 @@
 .side-bar {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 30%;
     background-color: #4e5055;
     height: 100%;
     margin: 0px 10px;
+}
+
+.project-selector {
+    width: 90%;
+    margin-top: 5%;
 }
