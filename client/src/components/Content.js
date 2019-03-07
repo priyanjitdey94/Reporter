@@ -4,6 +4,7 @@ import Uploader from './Uploader';
 import axios from 'axios';
 import '../css/content.css'
 import IssueManager from './IssueManager';
+import Modal from './Modal';
 
 export default class Content extends Component {
   constructor () {
@@ -11,26 +12,47 @@ export default class Content extends Component {
     this.state = {
       csvFile: undefined,
       showList: undefined,
+      modalInfo: undefined,
       data: undefined,  // raw data
       issues: undefined // copy of raw data, which is processed and used for creating issues
     }
   }
   render() {
-    let { showList, csvFile, issues } = this.state,
-      listComponent = '';
+    let { showList, csvFile, issues, modalInfo } = this.state,
+      listComponent = '',
+      modal;
 
+    if (modalInfo) {
+      modal = <Modal info={modalInfo} onClickHandler={this.onItemClick} />
+    }
     if (showList) {
-      listComponent = 
-      <IssueManager showList={showList} issues={issues} userData={this.props.userData} onItemClick={this.props.onItemClick} onItemDelete={this.onItemDelete} logIssue={this.logIssue} setProjectInIssues={this.setProjectInIssues}/>
+      listComponent = <IssueManager 
+        showList={showList} 
+        issues={issues} 
+        userData={this.props.userData} 
+        onItemClick={this.onItemClick} 
+        onItemDelete={this.onItemDelete} 
+        logIssue={this.logIssue} 
+        setProjectInIssues={this.setProjectInIssues}/>
     }
 
     return (
-      <div className='content'>
-        <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
-        {listComponent}
+      <div>
+        <div className='content'>
+          <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
+          {listComponent}
+        </div>
+        {modal}
       </div>
     );
   }
+
+  onItemClick = (modalInfo) => {
+    this.setState({
+      modalInfo
+    });
+  }
+
 
   updateCSVFile = event => {
     let csvFile = event.target && event.target.files && event.target.files[0];

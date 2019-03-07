@@ -27,6 +27,11 @@ class ModalItem extends Component {
           styles={colourStyles} 
           defaultValue={defaultValue} 
           options={options} 
+          onChange={
+            (arg) => {
+              this.props.onChange(this.props.id, arg.value);
+            }
+          }
           isSearchable={true}/>;
           break;
       case 'input': 
