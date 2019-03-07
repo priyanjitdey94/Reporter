@@ -3,27 +3,21 @@ import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
 import Content from './components/Content';
-import Modal from './components/Modal';
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
       userInfo: this.isSessionPresent(),
-      ticketInfo: undefined,
       userData: ''
     };
   }
   render() {
-    let { userInfo, ticketInfo, userData } = this.state,
-      bodyVisual,
-      modal;
+    let { userInfo, userData } = this.state,
+      bodyVisual;
 
     if (userInfo) {
-    bodyVisual = <Content onItemClick={this.onItemClick} userData={userData}/>;
-      if (ticketInfo) {
-        modal = <Modal info={this.state.ticketInfo} onClickHandler={this.onItemClick} />
-      }
+      bodyVisual = <Content userData={userData}/>;
     } else {
       bodyVisual = <Login onUserAuth={this.onUserAuth} handleUserData={this.handleUserData}/>;
     }
@@ -31,20 +25,13 @@ class App extends Component {
       <div className="App">
         <Header />
         {bodyVisual}
-        {modal}
       </div>
     );
   }
   
   isSessionPresent = () => {
-    // return !!(localStorage.getItem('jiraReporterUser'));
     return false;
-  }
-
-  onItemClick = (ticketInfo) => {
-    this.setState({
-      ticketInfo
-    });
+    // return !!(localStorage.getItem('jiraReporterUser'));
   }
 
   onUserAuth = (value) => {
@@ -54,6 +41,7 @@ class App extends Component {
   }
 
   handleUserData = (value) => {
+    console.log(value);
     this.setState({
       userData: value
     })
