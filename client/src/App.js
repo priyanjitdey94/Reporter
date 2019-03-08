@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Content from './components/Content';
 import { CRYPTOPHRASE, getCookie, AUTHCOOKIEKEY } from './utils/utility';
+import './css/nProgress.css';
 
 class App extends Component {
   constructor () {
@@ -13,7 +14,8 @@ class App extends Component {
     this.state = {
       userInfo: this.isSessionPresent(),
       userData: '',
-      cryptrInstance: new Cryptr(CRYPTOPHRASE)
+      cryptrInstance: new Cryptr(CRYPTOPHRASE),
+      rightCredential: ''
     };
   }
   render() {
@@ -23,7 +25,7 @@ class App extends Component {
     if (userInfo) {
       bodyVisual = <Content userInfo={userInfo} cryptrInstance={cryptrInstance} userData={userData}/>;
     } else {
-      bodyVisual = <Login cryptrInstance={cryptrInstance} onUserAuth={this.onUserAuth} handleUserData={this.handleUserData}/>;
+      bodyVisual = <Login cryptrInstance={cryptrInstance} onUserAuth={this.onUserAuth} handleUserData={this.handleUserData} handleCredential={this.handleCredential} rightCredential={this.state.rightCredential}/>;
     }
     return (
       <div className="App">
@@ -54,7 +56,8 @@ class App extends Component {
   }
   
   isSessionPresent = () => {
-    return getCookie(AUTHCOOKIEKEY) || false;
+    return false;
+    // return getCookie(AUTHCOOKIEKEY) || false;
   }
 
   onUserAuth = (value) => {
@@ -66,6 +69,12 @@ class App extends Component {
   handleUserData = (value) => {
     this.setState({
       userData: value
+    })
+  }
+
+  handleCredential = (value) => {
+    this.setState({
+      rightCredential: value
     })
   }
 }

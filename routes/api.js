@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
             'Content-Type': 'application/json'
         }
     }).then((response) => {
-        res.send(JSON.stringify(response.data, null, 4));
+        res.send(response.data);
     }).catch(function (err) {
-        console.log(err);
+        res.status(401).send('login error');
     });
 })
 
@@ -42,7 +42,6 @@ router.post('/', (req, res) => {
             'Content-Type': 'application/json'
         }
     }).then(response => {
-        console.log(JSON.stringify(response.data, null, 4));
         res.send(JSON.stringify(response.data, null, 4));
     }).catch(function (err) {
         console.log(err);
