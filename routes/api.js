@@ -72,4 +72,27 @@ router.get('/versions', (req, res) => {
     });
 })
 
+router.get('/users', (req, res) => {
+    console.log(req.query);
+    axios({
+        method: 'get',
+        url: `https://fusioncharts.jira.com/rest/api/2/user/assignable/search?project=${req.query.projKey}`,
+        auth: {
+            username: req.query.username,
+            password: req.query.password
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+            'Access-Control-Max-Age': 86400,
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => {
+        res.send(JSON.stringify(response.data, null, 4));
+    }).catch(function (err) {
+        console.log(err);
+    });
+})
+
 module.exports = router;

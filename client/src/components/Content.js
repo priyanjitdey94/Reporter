@@ -21,8 +21,17 @@ export default class Content extends Component {
         idToIssue: {},
         issueToId: {}
       },
+      versionIdMap: {
+        idToVersion: {},
+        versionToId: {}
+      },
+      userNameMap: {
+        nameToDisp: {},
+        dispToName: {}
+      },
       project: '',
-      versions: ''
+      versions: '',
+      users: ''
     }
   }
   render() {
@@ -156,7 +165,7 @@ export default class Content extends Component {
   setProjectInIssues = (projKey) => {
     let issues = [...this.state.issues],
       {userData} = this.props,
-      {issueIdMap, data} = this.state,
+      {issueIdMap, data, versionIdMap, userNameMap} = this.state,
       project = userData.projects.find(project => project.key === projKey),
       issuetypes = project.issuetypes;
 
@@ -164,10 +173,21 @@ export default class Content extends Component {
       idToIssue: {},
       issueToId: {}
     };
+
+    versionIdMap = {
+      idToVersion: {},
+      versionToId: {}
+    }
+    userNameMap = {
+      nameToDisp: {},
+      dispToName: {}
+    }
+
     issuetypes.forEach(issuetype => {
       issueIdMap.issueToId[issuetype.name] = issuetype.id;
       issueIdMap.idToIssue[issuetype.id] = issuetype.name;
     });
+
     issues = issues.map((issue, index) => {
       issue.project = projKey;
       issue.issuetype = issueIdMap.issueToId[issue.issuetype] || issueIdMap.issueToId[data[index].issuetype];
@@ -179,6 +199,7 @@ export default class Content extends Component {
       issueIdMap,
       issues
     });
+
     axios({
       method: 'get',
       url: 'http://localhost:4000/jira/versions',
@@ -191,8 +212,46 @@ export default class Content extends Component {
       this.setState({
         versions: response.data
       });
+
+      response.data.forEach(version => {
+        versionIdMap.versionToId[version.name] = version.id;
+        versionIdMap.idToVersion[version.id] = version.name;
+      });
+
+      this.setState({
+        versionIdMap
+      });
+
     }).catch(function (err) {
       console.log(err);
     });
+
+    axios({
+      method: 'get',
+      url: 'http://localhost:4000/jira/users',
+      params: {
+        username: localStorage.getItem('jiraReporterUser'),
+        password: localStorage.getItem('jiraReporterPassword'),
+        projKey
+      },
+    }).then((response) => {
+      this.setState({
+        users: response.data
+      });
+
+      response.data.forEach(user => {
+        userNameMap.nameToDisp[user.name] = user.displayName;
+        userNameMap.dispToName[user.displayName] = user.name;
+      });
+
+      this.setState({
+        userNameMap
+      });
+
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+
   }
 }
