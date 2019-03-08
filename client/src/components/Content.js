@@ -187,21 +187,25 @@ export default class Content extends Component {
         let issueObject = {
           "fields": {
               "project": {
-                  "key": issue.project
+                "key": issue.project
               },
               "summary": issue.summary,
               "issuetype": {
-                  "id": issue.issuetype
-              },
-              "assignee": {
-                  "name": issue['assignee'].split(' ')[0].toLowerCase()
-              },
-              "reporter": {
-                  "name": issue['reporter'].split(' ')[0].toLowerCase()
+                "id": issue.issuetype
               },
               "description": issue.description
           }
-        }
+        };
+      
+      issue.assignee && (issueObject.fields.assignee = {
+        name: issue.assignee
+      });
+      issue.reporter && (issueObject.fields.reporter = {
+        name: issue.reporter
+      });
+      issue.fixVersions && (issueObject.fields.assignee = [{
+        id: issue.fixVersions
+      }]);
       return issueObject;
     })
     return {issueUpdates: issueArray};
@@ -307,7 +311,7 @@ export default class Content extends Component {
   bulkUpdate = (key, value) => {
     let issues = [...this.state.issues];
     issues.forEach((issue) => {
-      issue[key] && (issue[key] = value);
+      issue[key] = value;
     });
     this.setState({issues});
   }

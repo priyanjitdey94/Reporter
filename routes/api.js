@@ -25,10 +25,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(JSON.stringify(req.body.issueJSON, null, 4));
     axios({
         method: 'post',
         url: 'https://fusioncharts.jira.com/rest/api/2/issue/bulk',
-        data:req.body.issueJSON,
+        data: req.body.issueJSON,
         auth: {
             username: req.body.username,
             password: req.body.password
