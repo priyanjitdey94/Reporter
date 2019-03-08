@@ -63,6 +63,7 @@ export default class Content extends Component {
         project={project}
         versions={versions}
         users={users}
+        bulkUpdate={this.bulkUpdate}
         />
     }
 
@@ -300,5 +301,13 @@ export default class Content extends Component {
     });
 
 
+  }
+
+  bulkUpdate = (key, value) => {
+    let issues = [...this.state.issues];
+    issues.forEach((issue) => {
+      issue[key] && (issue[key] = value);
+    });
+    this.setState({issues});
   }
 }

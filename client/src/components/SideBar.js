@@ -55,4 +55,7 @@ export default class SideBar extends Component {
     }
     return options;
   }
+  handleValueChange = (value) => {
+    this.props.bulkUpdate(this.state.value, value);
+  }
 }
