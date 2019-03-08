@@ -125,19 +125,19 @@ export default class Content extends Component {
         let issueObject = {
           "fields": {
               "project": {
-                  "key": issue.Project
+                  "key": issue.project
               },
-              "summary": issue.Title,
+              "summary": issue.summary,
               "issuetype": {
-                  "id": issue.issueType
+                  "id": issue.issuetype
               },
               "assignee": {
-                  "name": issue['Assignee'].split(' ')[0].toLowerCase()
+                  "name": issue['assignee'].split(' ')[0].toLowerCase()
               },
               "reporter": {
-                  "name": issue['Reporter'].split(' ')[0].toLowerCase()
+                  "name": issue['reporter'].split(' ')[0].toLowerCase()
               },
-              "description": issue.Description
+              "description": issue.description
           }
         }
       return issueObject;
