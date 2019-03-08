@@ -46,6 +46,18 @@ const ISSUETYPE = 'issuetype',
       };
     })
   },
+  getSelectList = valueLabelObj => {
+    let list = [],
+      itr;
+
+    for (itr in valueLabelObj) {
+      list.push({
+        value: itr,
+        label: valueLabelObj[itr]
+      });
+    }
+    return list;
+  },
   getPriorityId = priority => {
     let i, len;
     for (i = 0, len = priorityOptions.length; i < len; i++) {
@@ -72,7 +84,7 @@ class Modal extends Component {
     };
   }
   render () {
-    let { info, project, issueIdMap } = this.props,
+    let { info, project, issueIdMap, versionIdMap, userNameMap } = this.props,
       description = JSON.stringify(JSON.parse(info.testdata), undefined, 4);
     return (
       <div className='modal-background'>
@@ -101,29 +113,19 @@ class Modal extends Component {
               onChange={this.updateInfo}
               labelValue='Priority'/>
             <ModalItem 
-              inputType={dom.input} 
-              defaultValue={info.affectversions} 
+              inputType={dom.select} 
+              options={getSelectList(versionIdMap.idToVersion)}
+              defaultValue={{value: info.affectversions, label: versionIdMap.idToVersion[info.affectversions]}} 
               id={AFFECTEDVERSIONS}
               onChange={this.updateInfo}
               labelValue='Affect Version/s'/>
             <ModalItem 
-              inputType={dom.input} 
-              defaultValue={info.assignee} 
+              inputType={dom.select} 
+              options={getSelectList(userNameMap.nameToDisp)}
+              defaultValue={{value: info.assignee, label: userNameMap.nameToDisp[info.assignee]}} 
               id={ASSIGNEE}
               onChange={this.updateInfo}
               labelValue='Assignee'/>
-            <ModalItem 
-              inputType={dom.input} 
-              defaultValue={info.reviewer} 
-              id={REVIEWER}
-              onChange={this.updateInfo}
-              labelValue='Reviewer'/>
-            <ModalItem 
-              inputType={dom.input} 
-              defaultValue={info.reporter} 
-              id={REPORTER}
-              onChange={this.updateInfo}
-              labelValue='Reporter'/>
             <ModalItem 
               inputType={dom.textarea} 
               classNames={{input: 'data-textarea'}} 
