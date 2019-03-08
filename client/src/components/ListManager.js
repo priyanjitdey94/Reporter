@@ -23,7 +23,7 @@ class ListManager extends Component {
           {listItems}
         </div>
         <div id='log-btn'>
-          <button className={showList ? 'btn': 'hide'} onClick={ () => {logIssue(data)}}>Log Issues</button>
+          <button className={showList && data.length ? 'btn': 'hide'} onClick={ () => {logIssue(data)}}>Log Issues</button>
         </div>
       </div>
     );

@@ -5,10 +5,18 @@
     width: 20%;
     height: 100%;
     margin: 0px 10px;
-    border: 1px solid #4e5055; 
+    /* border: 1px solid #4e5055;  */
 }
 
 .project-selector {
+    width: 90%;
+    margin-top: 5%;
+}
+.key-selector {
+    width: 90%;
+    margin-top: 5%;
+}
+.value-selector {
     width: 90%;
     margin-top: 5%;
 }

@@ -193,17 +193,6 @@ export default class Content extends Component {
               "issuetype": {
                 "id": issue.issuetype
               },
-              // "assignee": {
-              //   "name": issue.assignee
-              // },
-              // "reporter": {
-              //   "name": issue.reporter
-              // },
-              // "fixVersions": [
-              //   {
-              //     "id": issue.fixversion || ''
-              //   }
-              // ],
               "description": issue.description
           }
         };
