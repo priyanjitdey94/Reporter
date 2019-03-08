@@ -35,7 +35,8 @@ export default class Content extends Component {
     }
   }
   render() {
-    let { showList, csvFile, issues, modalInfo, modalIndex, project, issueIdMap } = this.state,
+    let { showList, csvFile, issues, modalInfo, modalIndex, project, issueIdMap,
+      versionIdMap, userNameMap } = this.state,
       listComponent = '',
       modal;
 
@@ -45,6 +46,8 @@ export default class Content extends Component {
         index={modalIndex} 
         project={project} 
         issueIdMap={issueIdMap}
+        versionIdMap={versionIdMap}
+        userNameMap={userNameMap}
         onClickHandler={this.onItemClick} 
         onApply={this.updateIssueInfoFromModal}/>
     }
@@ -71,6 +74,54 @@ export default class Content extends Component {
     );
   }
 
+  updateNameMapping = (userNameMap) => {
+    let {issues, data} = this.state;
+
+    if (issues) {
+      issues = issues.map((issue, index) => {
+        if (issue.assignee) {
+          issue.assignee = userNameMap.dispToName[issue.assignee] ||
+            userNameMap.dispToName[data[index].assignee];
+        }
+        if (issue.reporter) {
+          issue.reporter = userNameMap.dispToName[issue.reporter] ||
+            userNameMap.dispToName[data[index].reporter];
+        }
+        if (issue.reviewer) {
+          issue.reviewer = userNameMap.dispToName[issue.reviewer] ||
+            userNameMap.dispToName[data[index].reviewer];
+        }
+
+        return issue;
+      });
+    }
+    this.setState({
+      issues,
+      userNameMap
+    });
+  }
+  updateVersionMapping = (versionIdMap) => {
+    let {issues, data} = this.state;
+
+    if (issues) {
+      issues = issues.map((issue, index) => {
+        if (issue.affectversions) {
+          issue.affectversions = versionIdMap.versionToId[issue.affectversions] ||
+            versionIdMap.versionToId[data[index].affectversions]
+        }
+  
+        if (issue.fixversions) {
+          issue.fixversions = versionIdMap.versionToId[issue.fixversions] ||
+            versionIdMap.versionToId[data[index].fixversions]
+        }
+        return issue;
+      });
+    }
+    this.setState({
+      issues,
+      versionIdMap
+    }); 
+  }
   onItemClick = (modalInfo, modalIndex) => {
     this.setState({
       modalInfo,
@@ -218,9 +269,7 @@ export default class Content extends Component {
         versionIdMap.idToVersion[version.id] = version.name;
       });
 
-      this.setState({
-        versionIdMap
-      });
+      this.updateVersionMapping(versionIdMap);
 
     }).catch(function (err) {
       console.log(err);
@@ -244,9 +293,7 @@ export default class Content extends Component {
         userNameMap.dispToName[user.displayName] = user.name;
       });
 
-      this.setState({
-        userNameMap
-      });
+      this.updateNameMapping(userNameMap);
 
     }).catch(function (err) {
       console.log(err);
