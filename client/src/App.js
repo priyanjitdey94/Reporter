@@ -49,8 +49,6 @@ class App extends Component {
       }).then((response) => {
         this.handleUserData(response.data);
         this.onUserAuth(userInfo);
-      }).catch(function (err) {
-        console.log(err);
       });
     }
   }

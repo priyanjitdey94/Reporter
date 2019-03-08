@@ -37,7 +37,6 @@ class Login extends Component {
       password
     }
     }).then((response) => {
-      console.log('hi', response);
       this.props.handleUserData(response.data);
 
       enc = cryptrInstance.encrypt(password);
