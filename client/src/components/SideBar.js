@@ -36,7 +36,6 @@ export default class SideBar extends Component {
     });
   }
   getValueOptions = () => {
-    debugger;
     let value = this.state.value, vArray, options = [];
     if (value === 'fixversion' || value === 'affectversion') {
       vArray = this.props.versions;

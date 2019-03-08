@@ -158,7 +158,6 @@ export default class Content extends Component {
 
   updateData = result => {
     var data = result.data;
-    debugger
     data = data.map(datum => cleanse(datum));
     this.setState({
       showList: true,
