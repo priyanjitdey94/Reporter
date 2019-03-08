@@ -169,7 +169,8 @@ export default class Content extends Component {
 
   logIssue = issues => {
     let issueJSON= this.createJSON(issues),
-    postData = Object.assign({}, {username: localStorage.getItem('jiraReporterUser'), password: localStorage.getItem('jiraReporterPassword')}, {issueJSON});
+      {userInfo, cryptrInstance} = this.props,
+      postData = Object.assign({}, {username: userInfo.name, password: cryptrInstance(userInfo.pass)}, {issueJSON});
     axios({
       method: 'post',
       url: 'http://localhost:4000/jira',
@@ -216,7 +217,7 @@ export default class Content extends Component {
 
   setProjectInIssues = (projKey) => {
     let issues = [...this.state.issues],
-      {userData} = this.props,
+      {userData, userInfo, cryptrInstance} = this.props,
       {issueIdMap, data, versionIdMap, userNameMap} = this.state,
       project = userData.projects.find(project => project.key === projKey),
       issuetypes = project.issuetypes;
@@ -256,8 +257,8 @@ export default class Content extends Component {
       method: 'get',
       url: 'http://localhost:4000/jira/versions',
       params: {
-        username: localStorage.getItem('jiraReporterUser'),
-        password: localStorage.getItem('jiraReporterPassword'),
+        username: userInfo.name,
+        password: cryptrInstance.decrypt(userInfo.pass),
         projKey
       },
     }).then((response) => {
@@ -280,8 +281,8 @@ export default class Content extends Component {
       method: 'get',
       url: 'http://localhost:4000/jira/users',
       params: {
-        username: localStorage.getItem('jiraReporterUser'),
-        password: localStorage.getItem('jiraReporterPassword'),
+        username: userInfo.name,
+        password: cryptrInstance.decrypt(userInfo.pass),
         projKey
       },
     }).then((response) => {

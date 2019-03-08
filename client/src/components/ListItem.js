@@ -9,7 +9,7 @@ class ListItem extends Component {
   }
   render () {
     let { info, issueIdMap } = this.props, 
-      type = (Object.keys(issueIdMap.idToIssue).length && issueIdMap.idToIssue[info.issuetype]) || '_Bug',
+      type = (Object.keys(issueIdMap.idToIssue).length && issueIdMap.idToIssue[info.issuetype]) || '',
       title = info.summary || '';
     return (
       <div className='list-item' onClick={() => {this.handleClick()}}>

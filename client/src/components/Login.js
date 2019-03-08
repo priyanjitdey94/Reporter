@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/login.css';
 import axios from 'axios';
+import { writeCookie, AUTHCOOKIEKEY, getCookie } from '../utils/utility';
 
 class Login extends Component {
   render () {
@@ -21,7 +22,9 @@ class Login extends Component {
 
   authorizeLogin () {
     let username = document.getElementById('username').value,
-      password = document.getElementById('password').value;
+      password = document.getElementById('password').value,
+      {cryptrInstance} = this.props,
+      enc;
 
     axios({
     method: 'get',
@@ -33,17 +36,16 @@ class Login extends Component {
     }).then((response) => {
       this.props.handleUserData(response.data);
 
+      enc = cryptrInstance.encrypt(password);
+      writeCookie(AUTHCOOKIEKEY, username, enc, 1000 * 60 * 60 * 6);
       if (response.statusText === 'OK'){
-        this.props.onUserAuth(true);
+        this.props.onUserAuth(getCookie(AUTHCOOKIEKEY));
       } else {
         this.props.onUserAuth(false);
       }
     }).catch(function (err) {
       console.log(err);
     });
-
-    localStorage.setItem('jiraReporterUser', username);
-    localStorage.setItem('jiraReporterPassword', password);
   }
 }
 

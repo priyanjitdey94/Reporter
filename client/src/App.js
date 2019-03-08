@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
+import Cryptr from 'cryptr';
+import axios from 'axios';
 import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
 import Content from './components/Content';
+import { CRYPTOPHRASE, getCookie, AUTHCOOKIEKEY } from './utils/utility';
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
       userInfo: this.isSessionPresent(),
-      userData: ''
+      userData: '',
+      cryptrInstance: new Cryptr(CRYPTOPHRASE)
     };
   }
   render() {
-    let { userInfo, userData } = this.state,
+    let { userInfo, userData, cryptrInstance } = this.state,
       bodyVisual;
 
     if (userInfo) {
-      bodyVisual = <Content userData={userData}/>;
+      bodyVisual = <Content userInfo={userInfo} cryptrInstance={cryptrInstance} userData={userData}/>;
     } else {
-      bodyVisual = <Login onUserAuth={this.onUserAuth} handleUserData={this.handleUserData}/>;
+      bodyVisual = <Login cryptrInstance={cryptrInstance} onUserAuth={this.onUserAuth} handleUserData={this.handleUserData}/>;
     }
     return (
       <div className="App">
@@ -28,15 +32,34 @@ class App extends Component {
       </div>
     );
   }
+  componentDidMount() {
+    let {userInfo, cryptrInstance} = this.state;
+
+    if (userInfo) {
+      userInfo = JSON.parse(userInfo);
+      axios({
+        method: 'get',
+        url: 'http://localhost:4000/jira',
+        params: {
+          username: userInfo.name,
+          password: cryptrInstance.decrypt(userInfo.pass)
+        }
+      }).then((response) => {
+        this.handleUserData(response.data);
+        this.onUserAuth(userInfo);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }
   
   isSessionPresent = () => {
-    return false;
-    // return !!(localStorage.getItem('jiraReporterUser'));
+    return getCookie(AUTHCOOKIEKEY) || false;
   }
 
   onUserAuth = (value) => {
     this.setState({
-      userInfo: value
+      userInfo: typeof value === 'string' ? JSON.parse(value) : value
     });
   }
 
