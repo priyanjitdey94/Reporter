@@ -56,8 +56,7 @@ class App extends Component {
   }
   
   isSessionPresent = () => {
-    return false;
-    // return getCookie(AUTHCOOKIEKEY) || false;
+    return getCookie(AUTHCOOKIEKEY) || false;
   }
 
   onUserAuth = (value) => {
