@@ -6,11 +6,11 @@
     height: 100%;
     margin: 0px 10px;
     /* border: 1px solid #4e5055;  */
+    font-weight: 600;
 }
 
 .project-selector {
     width: 90%;
-    margin-top: 5%;
 }
 .key-selector {
     width: 90%;
@@ -19,4 +19,8 @@
 .value-selector {
     width: 90%;
     margin-top: 5%;
+}
+
+.sidebar-label {
+     margin-bottom: 5px;
 }
