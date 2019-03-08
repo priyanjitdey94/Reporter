@@ -170,7 +170,7 @@ export default class Content extends Component {
   logIssue = issues => {
     let issueJSON= this.createJSON(issues),
       {userInfo, cryptrInstance} = this.props,
-      postData = Object.assign({}, {username: userInfo.name, password: cryptrInstance(userInfo.pass)}, {issueJSON});
+      postData = Object.assign({}, {username: userInfo.name, password: cryptrInstance.decrypt(userInfo.pass)}, {issueJSON});
     axios({
       method: 'post',
       url: 'http://localhost:4000/jira',
