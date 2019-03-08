@@ -1,0 +1,27 @@
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 20%;
+    height: 99%;
+    margin: 0px 10px;
+    border: 1px solid #4e5055; 
+    font-weight: 600;
+}
+
+.project-selector {
+    width: 90%;
+}
+.key-selector {
+    width: 90%;
+    margin-top: 5%;
+}
+.value-selector {
+    width: 90%;
+    margin-top: 5%;
+}
+
+.sidebar-label {
+     margin-bottom: 5px;
+}

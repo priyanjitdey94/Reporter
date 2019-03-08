@@ -1,0 +1,23 @@
+.uploader {
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #f8f5f5;
+}
+
+#upload-input {
+    display: none;
+}
+#upload-btn {
+    height: 36px;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 10px;
+}

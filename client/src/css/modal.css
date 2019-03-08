@@ -1,0 +1,123 @@
+.modal-background {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: center;
+  width: 50vw;
+  height: 88vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
+  z-index: 10000;
+  background-color: white;
+}
+
+/* .modal-container {
+  background-color: white;
+  width: 50%;
+  height: 100%;
+  box-shadow: 2px 2px #444444;
+  border-radius: 0.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
+  align-items: center;
+} */
+
+.modal-header {
+  display: flex;
+  flex-direction: row-reverse;
+  border-radius: 0.5%;
+  height: 5%;
+  width: 100%
+}
+.modal-header-button {
+  font-size: 14px;
+  font-weight: bold;
+  background-color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  height: 30px;
+  align-items: center;
+}
+.modal-header-button:hover {
+  font-size: 16px;
+}
+
+
+.modal-body {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  overflow-y: scroll;
+}
+
+.data-selector {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 15px; 
+  flex-shrink: 0;
+}
+
+.data-selector > input {
+  height: 30px;
+}
+
+.data-label {
+  justify-content: flex-start;
+  display: flex;
+  color: #5e6c84;
+  font-weight: bolder;
+  font-size: 13px;
+}
+
+.data-textarea {
+  width: 100%;
+  height: 90%;
+  resize: none;
+  border: 2px solid #5e6c84;
+}
+
+.modal-footer {
+  border-radius: 0.5%;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.modal-footer-button {
+  font-size: 14px;
+  height: 35px;
+  width: 100px;
+  margin: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-footer-apply-button {
+  background-color: #20202A;
+  color: white; 
+}
+.modal-footer-apply-button:hover {
+  background-color: #494959;
+}
+
+.modal-footer-cancel-button {
+  background-color: white;
+  color: #20202A;
+  border: 0px;
+}
+
+.modal-footer-cancel-button:hover {
+  text-decoration: underline;
+}
