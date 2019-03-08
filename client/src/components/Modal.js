@@ -5,7 +5,7 @@ import '../css/modal.css';
 const ISSUETYPE = 'issuetype',
   SUMMARY = 'summary',
   PRIORITY = 'priority',
-  AFFECTEDVERSIONS = 'affectversions',
+  AFFECTEDVERSIONS = 'affectversion',
   ASSIGNEE = 'assignee',
   REVIEWER = 'reviewer',
   REPORTER = 'reporter',
@@ -76,7 +76,7 @@ class Modal extends Component {
       [ISSUETYPE]: info.issuetype || '',
       [SUMMARY]: info.summary || '',
       [PRIORITY]: getPriorityId(info.priority) || '',
-      [AFFECTEDVERSIONS]: info.affectversions || '',
+      [AFFECTEDVERSIONS]: info.affectversion || '',
       [ASSIGNEE]: info.assignee || '',
       [REVIEWER]: info.reviewer || '',
       [REPORTER]: info.reporter || '',
@@ -89,7 +89,7 @@ class Modal extends Component {
     return (
       <div className='modal-background'>
           <div className='modal-header'>
-          <button className='modal-header-button'  onClick={this.handler} >X</button>
+          <button className='modal-header-button'  onClick={this.handler}>&#10006;</button>
           </div>
           <div className='modal-body'>
             <ModalItem 
@@ -115,7 +115,7 @@ class Modal extends Component {
             <ModalItem 
               inputType={dom.select} 
               options={getSelectList(versionIdMap.idToVersion)}
-              defaultValue={{value: info.affectversions, label: versionIdMap.idToVersion[info.affectversions]}} 
+              defaultValue={{value: info.affectversion, label: versionIdMap.idToVersion[info.affectversion]}} 
               id={AFFECTEDVERSIONS}
               onChange={this.updateInfo}
               labelValue='Affect Version/s'/>
@@ -154,13 +154,13 @@ class Modal extends Component {
 
   submitHandler = () => {
     let retObj,
-      {issuetype, summary, priority, affectversions, assignee, reviewer, reporter, testdata} = this.state;
+      {issuetype, summary, priority, affectversion, assignee, reviewer, reporter, testdata} = this.state;
 
     retObj = Object.assign({
       [ISSUETYPE]: issuetype,
       [SUMMARY]: summary,
       [PRIORITY]: priority,
-      [AFFECTEDVERSIONS]: affectversions,
+      [AFFECTEDVERSIONS]: affectversion,
       [ASSIGNEE]: assignee,
       [REVIEWER]: reviewer,
       [REPORTER]: reporter,

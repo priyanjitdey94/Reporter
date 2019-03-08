@@ -26,3 +26,8 @@
 .issue-delete {
   font-weight: bolder;
 }
+
+.issue-delete:hover {
+  transform: scale(1.2);
+  transition: all linear 0.2;
+}

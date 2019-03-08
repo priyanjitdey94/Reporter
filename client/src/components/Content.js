@@ -107,9 +107,9 @@ export default class Content extends Component {
 
     if (issues) {
       issues = issues.map((issue, index) => {
-        if (issue.affectversions) {
-          issue.affectversions = versionIdMap.versionToId[issue.affectversions] ||
-            versionIdMap.versionToId[data[index].affectversions]
+        if (issue.affectversion) {
+          issue.affectversion = versionIdMap.versionToId[issue.affectversion] ||
+            versionIdMap.versionToId[data[index].affectversion]
         }
   
         if (issue.fixversions) {

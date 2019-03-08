@@ -15,8 +15,8 @@ export default class SideBar extends Component {
       return {value: project.key, label: project.name}
     })
     return (
-      <div className="side-bar">
-        <div className="project-selector">
+      <div className={this.props.project ? 'side-bar' : 'side-bar-full'}>
+        <div className={this.props.project ? 'project-selector' : 'project-selector-full'}>
         <label className='sidebar-label'>Select Project</label>
         <Select isSearchable={true} options={projectOptions} onChange={(e) => {this.handleProjectChange(e.value)}}/>
         </div>
@@ -55,6 +55,11 @@ export default class SideBar extends Component {
       vArray = this.props.users;
       options = vArray.map(user => {
         return {value: user.name, label: user.displayName}
+      });
+    } else if (value === 'priority') {
+      vArray = [{name: 'Blocker', id: 1}, {name: 'Critical', id: 1}, {name: 'Major', id: 1}, {name: 'Minor', id: 1}, {name: 'Trivial', id: 1}];
+      options = vArray.map(user => {
+        return {value: user.id, label: user.name}
       });
     }
     return options;
