@@ -41,7 +41,7 @@ class App extends Component {
       userInfo = JSON.parse(userInfo);
       axios({
         method: 'get',
-        url: 'http://localhost:4000/jira',
+        url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
         params: {
           username: userInfo.name,
           password: cryptrInstance.decrypt(userInfo.pass)

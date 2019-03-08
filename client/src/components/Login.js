@@ -31,7 +31,7 @@ class Login extends Component {
     nProgress.inc(0.4);
     axios({
     method: 'get',
-    url: 'http://localhost:4000/jira',
+    url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
     params: {
       username,
       password

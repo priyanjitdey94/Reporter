@@ -173,7 +173,7 @@ export default class Content extends Component {
       postData = Object.assign({}, {username: userInfo.name, password: cryptrInstance.decrypt(userInfo.pass)}, {issueJSON});
     axios({
       method: 'post',
-      url: 'http://localhost:4000/jira',
+      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
       data: postData,
       }).then((response) => {
          console.log('POST', response);
@@ -259,7 +259,7 @@ export default class Content extends Component {
 
     axios({
       method: 'get',
-      url: 'http://localhost:4000/jira/versions',
+      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira/versions',
       params: {
         username: userInfo.name,
         password: cryptrInstance.decrypt(userInfo.pass),
@@ -283,7 +283,7 @@ export default class Content extends Component {
 
     axios({
       method: 'get',
-      url: 'http://localhost:4000/jira/users',
+      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira/users',
       params: {
         username: userInfo.name,
         password: cryptrInstance.decrypt(userInfo.pass),
