@@ -6,6 +6,7 @@ import '../css/content.css'
 import IssueManager from './IssueManager';
 import Modal from './Modal';
 import { cleanse } from '../utils/utility';
+import IssueLogger from './IssueLogger';
 
 export default class Content extends Component {
   constructor () {
@@ -31,13 +32,16 @@ export default class Content extends Component {
       },
       project: '',
       versions: '',
-      users: ''
+      users: '',
+      loggedIssues: '',
+      showIssueLogger: ''
     }
   }
   render() {
-    let { showList, csvFile, issues, modalInfo, modalIndex, project, issueIdMap, versions, users, versionIdMap, userNameMap } = this.state,
+    let { showList, csvFile, issues, modalInfo, modalIndex, project, issueIdMap, versions, users, versionIdMap, userNameMap, showIssueLogger, loggedIssues } = this.state,
       listComponent = '',
-      modal;
+      modal,
+      issueLogger;
 
     if (modalInfo) {
       modal = <Modal 
@@ -66,12 +70,19 @@ export default class Content extends Component {
         bulkUpdate={this.bulkUpdate}
         />
     }
+    if (showIssueLogger) {
+      issueLogger = <IssueLogger
+        showIssueLogger={showIssueLogger}
+        issues={loggedIssues}
+      />
+    }
 
     return (
         <div className='content'>
           <Uploader csvFile={csvFile} updateCSVFile={this.updateCSVFile} processCSV={this.processCSV}/>
           {listComponent}
           {modal}
+          {issueLogger}
         </div>
     );
   }
@@ -176,9 +187,12 @@ export default class Content extends Component {
       url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
       data: postData,
       }).then((response) => {
-         console.log('POST', response);
+         this.setState({
+           loggedIssues: response.data,
+           showIssueLogger: true
+         })
       }).catch(function (err) {
-        console.log(err);
+          console.log(err);
       });
   }
 
