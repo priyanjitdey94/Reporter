@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/sidebar.css';
 import Select from 'react-select';
+import Switch from '@material-ui/core/Switch';
 
 export default class SideBar extends Component {
   constructor (props) {
@@ -27,6 +28,10 @@ export default class SideBar extends Component {
         <div className={this.props.project ? 'value-selector' : 'hide'}>
         <label className='sidebar-label'>Select Value</label>
         <Select isSearchable={true} options={this.getValueOptions()} onChange={(e) => {this.handleValueChange(e.value)}}/>
+        </div>
+        <div className={this.props.loggedIssues.length ? 'issue-logger-switch' : 'hide'}>
+        <label className='issue-logger-label'>{`${this.props.showIssueLogger ? 'Hide Logger' : 'Show Logger'}`}</label>
+          <Switch checked={this.props.showIssueLogger} onChange={() => {this.handleLoggerDisplay()}} value="showIssueLogger" color="primary"/>
         </div>
       </div>
     )
@@ -66,5 +71,8 @@ export default class SideBar extends Component {
   }
   handleValueChange = (value) => {
     this.props.bulkUpdate(this.state.value, value);
+  }
+  handleLoggerDisplay = () => {
+    this.props.handleLoggerDisplay(!this.props.showIssueLogger)
   }
 }

@@ -6,10 +6,21 @@ import '../css/issuemanager.css';
 export default class IssueManager extends Component {
   render() {
     let {showList, onItemClick, onItemDelete, issues, logIssue, 
-      userData, setProjectInIssues, issueIdMap, project, versions, users, bulkUpdate} = this.props;
+      userData, setProjectInIssues, issueIdMap, project, versions, users, bulkUpdate, showIssueLogger, handleLoggerDisplay, loggedIssues } = this.props;
     return (
       <div className='issue-manager'>
-        <SideBar userData={userData} setProjectInIssues={setProjectInIssues} project={project} versions={versions} users={users} bulkUpdate={bulkUpdate}/>
+
+        <SideBar userData={userData} 
+        setProjectInIssues={setProjectInIssues} 
+        project={project} 
+        versions={versions} 
+        users={users} 
+        bulkUpdate={bulkUpdate}
+        showIssueLogger={showIssueLogger}
+        handleLoggerDisplay={handleLoggerDisplay}
+        loggedIssues={loggedIssues}
+        />
+
         <ListManager 
         showList= {showList}
         issueIdMap={issueIdMap}

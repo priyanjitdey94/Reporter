@@ -7,6 +7,7 @@ import IssueManager from './IssueManager';
 import Modal from './Modal';
 import { cleanse } from '../utils/utility';
 import IssueLogger from './IssueLogger';
+import nProgress from 'nprogress';
 
 export default class Content extends Component {
   constructor () {
@@ -33,7 +34,7 @@ export default class Content extends Component {
       project: '',
       versions: '',
       users: '',
-      loggedIssues: '',
+      loggedIssues: [],
       showIssueLogger: ''
     }
   }
@@ -59,8 +60,8 @@ export default class Content extends Component {
         showList={showList} 
         issues={issues} 
         issueIdMap={issueIdMap}
-        userData={this.props.userData} 
-        onItemClick={this.onItemClick} 
+        userData={this.props.userData}
+        onItemClick={this.onItemClick}
         onItemDelete={this.onItemDelete} 
         logIssue={this.logIssue} 
         setProjectInIssues={this.setProjectInIssues}
@@ -68,12 +69,16 @@ export default class Content extends Component {
         versions={versions}
         users={users}
         bulkUpdate={this.bulkUpdate}
+        showIssueLogger={showIssueLogger}
+        handleLoggerDisplay={this.handleLoggerDisplay}
+        loggedIssues={loggedIssues}
         />
     }
     if (showIssueLogger) {
       issueLogger = <IssueLogger
         showIssueLogger={showIssueLogger}
         issues={loggedIssues}
+        handleLoggerDisplay={this.handleLoggerDisplay}
       />
     }
 
@@ -182,17 +187,24 @@ export default class Content extends Component {
     let issueJSON= this.createJSON(issues),
       {userInfo, cryptrInstance} = this.props,
       postData = Object.assign({}, {username: userInfo.name, password: cryptrInstance.decrypt(userInfo.pass)}, {issueJSON});
+      
+      nProgress.start();
+      nProgress.inc(0.4);
+    
     axios({
       method: 'post',
       url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
       data: postData,
       }).then((response) => {
          this.setState({
-           loggedIssues: response.data,
+           loggedIssues: [...this.state.loggedIssues, ...response.data.issues],
            showIssueLogger: true
-         })
+         });
+
+         nProgress.done();
       }).catch(function (err) {
           console.log(err);
+          nProgress.done();
       });
   }
 
@@ -328,5 +340,11 @@ export default class Content extends Component {
       issue[key] = value;
     });
     this.setState({issues});
+  }
+
+  handleLoggerDisplay = (value) => {
+    this.setState({
+      showIssueLogger: value
+    });
   }
 }
