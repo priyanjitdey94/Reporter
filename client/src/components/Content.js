@@ -233,8 +233,11 @@ export default class Content extends Component {
       issue.reporter && (issueObject.fields.reporter = {
         name: issue.reporter
       });
-      issue.fixVersions && (issueObject.fields.assignee = [{
-        id: issue.fixVersions
+      issue.fixversion && (issueObject.fields.fixVersions = [{
+        id: issue.fixversion
+      }]);
+      issue.affectversions && (issueObject.fields.versions = [{
+        id: issue.affectversions
       }]);
       return issueObject;
     })

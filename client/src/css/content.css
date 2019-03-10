@@ -39,12 +39,12 @@
     background-color: rgba(0, 0, 0, 0.65);
     box-sizing: border-box;
     z-index: 10000;
-    background-color: #E3E7D3;
+    background-color: #D0E1D4;
     overflow-y: scroll;
 }
 
 .logger-close-button {
-    background-color: #E3E7D3;
+    background-color: #D0E1D4;
     border: none;
     transform: scale(1.5);
     cursor: pointer;
