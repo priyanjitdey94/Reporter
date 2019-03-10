@@ -42,14 +42,6 @@ const ISSUETYPE = 'issuetype',
       });
     }
     return list;
-  },
-  getPriorityId = priority => {
-    let i, len;
-    for (i = 0, len = priorityOptions.length; i < len; i++) {
-      if (priority === priorityOptions[i].label) {
-        return priorityOptions[i].value;
-      }
-    }
   };
 
 class Modal extends Component {
