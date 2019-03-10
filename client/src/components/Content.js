@@ -239,6 +239,9 @@ export default class Content extends Component {
       issue.affectversions && (issueObject.fields.versions = [{
         id: issue.affectversions
       }]);
+      issue.priority && (issueObject.fields.priority = {
+        id: issue.priority
+      });
       return issueObject;
     })
     return {issueUpdates: issueArray};
