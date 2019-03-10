@@ -194,10 +194,10 @@ export default class Content extends Component {
       
       nProgress.start();
       nProgress.inc(0.4);
-    console.log(JSON.stringify(issueJSON, null, 4));
+    
     axios({
       method: 'post',
-      url: 'http://localhost:4000/jira',
+      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
       data: postData,
       }).then((response) => {
          this.setState({
