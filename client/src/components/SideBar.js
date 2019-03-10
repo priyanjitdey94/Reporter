@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/sidebar.css';
 import Select from 'react-select';
 import Switch from '@material-ui/core/Switch';
+import { priorityOptions } from '../utils/utility';
 
 export default class SideBar extends Component {
   constructor (props) {
@@ -30,7 +31,7 @@ export default class SideBar extends Component {
         <Select isSearchable={true} options={this.getValueOptions()} onChange={(e) => {this.handleValueChange(e.value)}}/>
         </div>
         <div className={this.props.loggedIssues.length ? 'issue-logger-switch' : 'hide'}>
-        <label className='issue-logger-label'>{`${this.props.showIssueLogger ? 'Hide Logger' : 'Show Logger'}`}</label>
+        <label className='issue-logger-label'>{this.props.showIssueLogger ? 'Hide Logger' : 'Show Logger'}</label>
           <Switch checked={this.props.showIssueLogger} onChange={() => {this.handleLoggerDisplay()}} value="showIssueLogger" color="primary"/>
         </div>
       </div>
@@ -62,9 +63,9 @@ export default class SideBar extends Component {
         return {value: user.name, label: user.displayName}
       });
     } else if (value === 'priority') {
-      vArray = [{name: 'Blocker', id: 1}, {name: 'Critical', id: 1}, {name: 'Major', id: 1}, {name: 'Minor', id: 1}, {name: 'Trivial', id: 1}];
-      options = vArray.map(user => {
-        return {value: user.id, label: user.name}
+      vArray = Object.keys(priorityOptions.priorityIdMap);
+      options = vArray.map(priority => {
+        return {value: priorityOptions.priorityIdMap[priority], label: priority}
       });
     }
     return options;

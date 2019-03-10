@@ -10,6 +10,8 @@ const ISSUETYPE = 'issuetype',
   ASSIGNEE = 'assignee',
   REVIEWER = 'reviewer',
   REPORTER = 'reporter',
+  DESCRIPTION = 'description',
+  PROJECT = 'project',
   TESTDATA = 'testdata',
   dom = {
     input: {
@@ -104,6 +106,12 @@ class Modal extends Component {
               onChange={this.updateInfo}
               labelValue='Assignee'/>
             <ModalItem 
+              inputType={dom.input} 
+              defaultValue={info.description} 
+              id={DESCRIPTION}
+              onChange={this.updateInfo}
+              labelValue='Description'/>
+            <ModalItem 
               inputType={dom.textarea} 
               classNames={{input: 'data-textarea'}} 
               config={{rows: 20, cols: 30}} 
@@ -131,16 +139,18 @@ class Modal extends Component {
 
   submitHandler = () => {
     let retObj,
-      {issuetype, summary, priority, affectversions, assignee, reviewer, reporter, testdata} = this.state;
+      {issuetype, summary, priority, affectversions, assignee, reviewer, reporter, description, testdata} = this.state;
 
     retObj = Object.assign({
       [ISSUETYPE]: issuetype,
       [SUMMARY]: summary,
+      [PROJECT]: this.props.project.key,
       [PRIORITY]: priority,
       [AFFECTEDVERSIONS]: affectversions,
       [ASSIGNEE]: assignee,
       [REVIEWER]: reviewer,
       [REPORTER]: reporter,
+      [DESCRIPTION]: description,
       [TESTDATA]: testdata
     });
 
