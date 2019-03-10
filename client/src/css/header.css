@@ -25,7 +25,7 @@
   font-weight: bolder;
   background-color: #20202A;
   white-space: nowrap;
-  /* text-align: right; */
+  padding-right: 1%;
 }
 
 .logout:hover {

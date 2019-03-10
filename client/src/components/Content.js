@@ -194,10 +194,10 @@ export default class Content extends Component {
       
       nProgress.start();
       nProgress.inc(0.4);
-    
+    console.log(JSON.stringify(issueJSON, null, 4));
     axios({
       method: 'post',
-      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
+      url: 'http://localhost:4000/jira',
       data: postData,
       }).then((response) => {
          this.setState({
@@ -229,9 +229,6 @@ export default class Content extends Component {
       
       issue.assignee && (issueObject.fields.assignee = {
         name: issue.assignee
-      });
-      issue.reporter && (issueObject.fields.reporter = {
-        name: issue.reporter
       });
       issue.fixversion && (issueObject.fields.fixVersions = [{
         id: issue.fixversion
