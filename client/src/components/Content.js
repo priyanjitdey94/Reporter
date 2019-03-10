@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../css/content.css'
 import IssueManager from './IssueManager';
 import Modal from './Modal';
-import { cleanse } from '../utils/utility';
+import { cleanse, priorityOptions } from '../utils/utility';
 import IssueLogger from './IssueLogger';
 import nProgress from 'nprogress';
 
@@ -123,9 +123,9 @@ export default class Content extends Component {
 
     if (issues) {
       issues = issues.map((issue, index) => {
-        if (issue.affectversion) {
-          issue.affectversion = versionIdMap.versionToId[issue.affectversion] ||
-            versionIdMap.versionToId[data[index].affectversion]
+        if (issue.affectversions) {
+          issue.affectversions = versionIdMap.versionToId[issue.affectversions] ||
+            versionIdMap.versionToId[data[index].affectversions]
         }
   
         if (issue.fixversions) {
@@ -278,6 +278,7 @@ export default class Content extends Component {
     issues = issues.map((issue, index) => {
       issue.project = projKey;
       issue.issuetype = issueIdMap.issueToId[issue.issuetype] || issueIdMap.issueToId[data[index].issuetype];
+      issue.priority = priorityOptions.priorityIdMap[issue.priority] || priorityOptions.priorityIdMap[data[index].priority]
       return issue;
     });
 
