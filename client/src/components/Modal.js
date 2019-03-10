@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ModalItem from './ModalItem';
+import {priorityOptions} from '../utils/utility';
 import '../css/modal.css';
 
 const ISSUETYPE = 'issuetype',
   SUMMARY = 'summary',
   PRIORITY = 'priority',
-  AFFECTEDVERSIONS = 'affectversion',
+  AFFECTEDVERSIONS = 'affectversions',
   ASSIGNEE = 'assignee',
   REVIEWER = 'reviewer',
   REPORTER = 'reporter',
@@ -22,22 +23,6 @@ const ISSUETYPE = 'issuetype',
       dom: 'textarea'
     }
   },
-  priorityOptions = [{
-    value: '1',
-    label: 'Blocker'
-  }, {
-    value: '2',
-    label: 'Critical'
-  }, {
-    value: '3',
-    label: 'Major'
-  }, {
-    value: '4',
-    label: 'Major'
-  }, {
-    value: '5',
-    label: 'Trivial'
-  }], 
   getIssueTypes = issuetypes => {
     return issuetypes.map(issuetype => {
       return {
@@ -75,8 +60,8 @@ class Modal extends Component {
     this.state = {
       [ISSUETYPE]: info.issuetype || '',
       [SUMMARY]: info.summary || '',
-      [PRIORITY]: getPriorityId(info.priority) || '',
-      [AFFECTEDVERSIONS]: info.affectversion || '',
+      [PRIORITY]: info.priority || '',
+      [AFFECTEDVERSIONS]: info.affectversions || '',
       [ASSIGNEE]: info.assignee || '',
       [REVIEWER]: info.reviewer || '',
       [REPORTER]: info.reporter || '',
@@ -107,15 +92,15 @@ class Modal extends Component {
               labelValue='Summary'/>
             <ModalItem 
               inputType={dom.select} 
-              options={priorityOptions} 
-              defaultValue={{value: priorityOptions.find(option => option.label === info.priority), label: info.priority}} 
+              options={getSelectList(priorityOptions.idPriorityMap)} 
+              defaultValue={{value: info.priority, label: priorityOptions.idPriorityMap[info.priority]}} 
               id={PRIORITY}
               onChange={this.updateInfo}
               labelValue='Priority'/>
             <ModalItem 
               inputType={dom.select} 
               options={getSelectList(versionIdMap.idToVersion)}
-              defaultValue={{value: info.affectversion, label: versionIdMap.idToVersion[info.affectversion]}} 
+              defaultValue={{value: info.affectversions, label: versionIdMap.idToVersion[info.affectversions]}} 
               id={AFFECTEDVERSIONS}
               onChange={this.updateInfo}
               labelValue='Affect Version/s'/>
@@ -154,13 +139,13 @@ class Modal extends Component {
 
   submitHandler = () => {
     let retObj,
-      {issuetype, summary, priority, affectversion, assignee, reviewer, reporter, testdata} = this.state;
+      {issuetype, summary, priority, affectversions, assignee, reviewer, reporter, testdata} = this.state;
 
     retObj = Object.assign({
       [ISSUETYPE]: issuetype,
       [SUMMARY]: summary,
       [PRIORITY]: priority,
-      [AFFECTEDVERSIONS]: affectversion,
+      [AFFECTEDVERSIONS]: affectversions,
       [ASSIGNEE]: assignee,
       [REVIEWER]: reviewer,
       [REPORTER]: reporter,

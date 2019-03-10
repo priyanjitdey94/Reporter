@@ -1,6 +1,22 @@
 const CRYPTOPHRASE = 'jirareporter',
   AUTHCOOKIEKEY = 'ajr',
   DEFAULT_SESSION_TIMEOUT = 24 * 60 * 60 * 1000,
+  priorityOptions = {
+    priorityIdMap: {
+      'Blocker': '1',
+      'Critical': '2',
+      'Major': '3',
+      'Minor': '4',
+      'Trivial': '5'
+    },
+    idPriorityMap: {
+      1: 'Blocker',
+      2: 'Critical',
+      3: 'Major',
+      4: 'Minor',
+      5: 'Trivial'
+    }
+  },
   cleanse = json => {
     let keys = Object.keys(json),
       cleanKey,
@@ -45,6 +61,7 @@ export {
   cleanse,
   getCookie,
   writeCookie,
+  priorityOptions,
   CRYPTOPHRASE,
   AUTHCOOKIEKEY
 };
