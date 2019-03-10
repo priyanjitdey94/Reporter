@@ -49,6 +49,11 @@ class ModalItem extends Component {
           className={classNames.input || 'data-textarea'} 
           rows={config.rows} 
           col={config.cols} 
+          onBlur={
+            (event) => {
+              this.props.onChange(this.props.id, event.target.value);
+            } 
+          }
           defaultValue={defaultValue}></textarea>; 
           break;
       default: inputType = undefined;

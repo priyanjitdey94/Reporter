@@ -117,7 +117,7 @@ class Modal extends Component {
               config={{rows: 20, cols: 30}} 
               defaultValue={description} 
               id={TESTDATA}
-              onChange={this.updateInfo}
+              onChange={this.updateTestdata}
               labelValue='Description'/>
           </div>
           <div className='modal-footer'>
@@ -158,8 +158,18 @@ class Modal extends Component {
     this.handler();
   }
 
-  validateInput = () => {
+  isValidJSON = value => {
+    try {
+      JSON.parse(value);
+    } catch (e) {
+      return false;
+    }
     return true;
+  }
+  updateTestdata = (id, value) => {
+    if (this.isValidJSON(value)) {
+      this.updateInfo(id, value);
+    }
   }
 }
 
