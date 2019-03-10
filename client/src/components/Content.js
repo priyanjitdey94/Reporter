@@ -219,19 +219,19 @@ export default class Content extends Component {
               "project": {
                 "key": issue.project
               },
-              "summary": issue.summary,
+              "summary": issue.summary || '',
               "issuetype": {
                 "id": issue.issuetype
               },
-              "description": issue.description + '{code}'+ JSON.stringify(JSON.parse(issue.testdata), null, 4) +'{code}'
+              "description": (issue.description || '') + '{code}'+ JSON.stringify(JSON.parse(issue.testdata), null, 4) +'{code}'
           }
         };
       
       issue.assignee && (issueObject.fields.assignee = {
         name: issue.assignee
       });
-      issue.fixversion && (issueObject.fields.fixVersions = [{
-        id: issue.fixversion
+      issue.fixversions && (issueObject.fields.fixVersions = [{
+        id: issue.fixversions
       }]);
       issue.affectversions && (issueObject.fields.versions = [{
         id: issue.affectversions
@@ -240,7 +240,7 @@ export default class Content extends Component {
         id: issue.priority
       });
       return issueObject;
-    })
+    });
     return {issueUpdates: issueArray};
   }
 

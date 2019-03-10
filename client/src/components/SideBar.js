@@ -24,7 +24,7 @@ export default class SideBar extends Component {
         </div>
         <div className={this.props.project ? 'key-selector' : 'hide'}>
         <label className='sidebar-label'>Select Key</label>
-        <Select isSearchable={true} options={[{value: 'issuetype', label: 'Issue Type'}, {value: 'fixversion', label: 'Fix Version'}, {value: 'affectversion', label: 'Affect Version'}, {value: 'priority', label: 'Priority'}, {value: 'assignee', label: 'Assignee'}]} onChange={(e) => {this.handleKeyChange(e.value)}}/>
+        <Select isSearchable={true} options={[{value: 'issuetype', label: 'Issue Type'}, {value: 'fixversions', label: 'Fix Versions'}, {value: 'affectversions', label: 'Affect Versions'}, {value: 'priority', label: 'Priority'}, {value: 'assignee', label: 'Assignee'}]} onChange={(e) => {this.handleKeyChange(e.value)}}/>
         </div>
         <div className={this.props.project ? 'value-selector' : 'hide'}>
         <label className='sidebar-label'>Select Value</label>
@@ -47,7 +47,7 @@ export default class SideBar extends Component {
   }
   getValueOptions = () => {
     let value = this.state.value, vArray, options = [];
-    if (value === 'fixversion' || value === 'affectversion') {
+    if (value === 'fixversions' || value === 'affectversions') {
       vArray = this.props.versions;
       options = vArray.map(version => {
         return {value: version.id, label: version.name}
