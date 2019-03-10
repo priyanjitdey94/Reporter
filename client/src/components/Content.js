@@ -223,7 +223,7 @@ export default class Content extends Component {
               "issuetype": {
                 "id": issue.issuetype
               },
-              "description": issue.description
+              "description": issue.description + '{code}'+ JSON.stringify(JSON.parse(issue.testdata), null, 4) +'{code}'
           }
         };
       

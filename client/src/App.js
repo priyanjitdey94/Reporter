@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <div className="App">
         <Online>
-        <Header />
+        <Header showLogout={userInfo} onLogout={this.resetSession}/>
         {bodyVisual}
         </Online>
         <Offline><div id='offline-div'>You're offline right now. Check your connection.</div></Offline>
@@ -59,6 +59,13 @@ class App extends Component {
   
   isSessionPresent = () => {
     return getCookie(AUTHCOOKIEKEY) || false;
+  }
+
+  resetSession = () => {
+    this.setState({
+      userInfo: false,
+      userData: ''
+    });
   }
 
   onUserAuth = (value) => {
