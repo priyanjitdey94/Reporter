@@ -47,6 +47,8 @@
     background-color: #E3E7D3;
     border: none;
     transform: scale(1.5);
+    cursor: pointer;
+    outline: none;
 }
 
 .issue-logger-screen {
