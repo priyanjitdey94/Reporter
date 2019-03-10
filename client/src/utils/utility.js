@@ -55,6 +55,9 @@ const CRYPTOPHRASE = 'jirareporter',
       expires = '; expires=' + date.toGMTString();
     }
     document.cookie = cookieKey + '=' + JSON.stringify({name: name, pass: pass}) + expires + '; path=/';
+  },
+  deleteCookie = cookieKey => {
+    document.cookie = cookieKey + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   };
 
 export {
@@ -63,5 +66,6 @@ export {
   writeCookie,
   priorityOptions,
   CRYPTOPHRASE,
-  AUTHCOOKIEKEY
+  AUTHCOOKIEKEY,
+  deleteCookie
 };
