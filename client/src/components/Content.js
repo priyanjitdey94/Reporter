@@ -203,7 +203,7 @@ export default class Content extends Component {
          this.setState({
            loggedIssues: [...this.state.loggedIssues, ...response.data.issues],
            showIssueLogger: true
-         });
+        });
 
          nProgress.done();
       }).catch(function (err) {
