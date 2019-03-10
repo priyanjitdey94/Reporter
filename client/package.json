@@ -5,7 +5,6 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "axios": "^0.18.0",
-    "base-64": "^0.1.0",
     "cryptr": "^4.0.2",
     "nprogress": "^0.2.0",
     "papaparse": "^4.6.3",
