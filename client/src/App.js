@@ -5,7 +5,7 @@ import './App.css';
 import Header from './components/Header';
 import Login from './components/Login';
 import Content from './components/Content';
-import { CRYPTOPHRASE, getCookie, AUTHCOOKIEKEY } from './utils/utility';
+import { CRYPTOPHRASE, getCookie, AUTHCOOKIEKEY, SERVER_PATH } from './utils/utility';
 import { Offline, Online } from "react-detect-offline";
 import './css/nProgress.css';
 
@@ -45,7 +45,7 @@ class App extends Component {
       userInfo = JSON.parse(userInfo);
       axios({
         method: 'get',
-        url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
+        url: SERVER_PATH + 'jira',
         params: {
           username: userInfo.name,
           password: cryptrInstance.decrypt(userInfo.pass)

@@ -1,6 +1,7 @@
 const CRYPTOPHRASE = 'jirareporter',
   AUTHCOOKIEKEY = 'ajr',
   DEFAULT_SESSION_TIMEOUT = 24 * 60 * 60 * 1000,
+  SERVER_PATH = 'https://jira-reporter-proxy-server.herokuapp.com/',
   priorityOptions = {
     priorityIdMap: {
       'Blocker': '1',
@@ -67,5 +68,6 @@ export {
   priorityOptions,
   CRYPTOPHRASE,
   AUTHCOOKIEKEY,
-  deleteCookie
+  deleteCookie,
+  SERVER_PATH
 };

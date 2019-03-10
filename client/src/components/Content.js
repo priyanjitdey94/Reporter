@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../css/content.css'
 import IssueManager from './IssueManager';
 import Modal from './Modal';
-import { cleanse, priorityOptions } from '../utils/utility';
+import { cleanse, priorityOptions, SERVER_PATH } from '../utils/utility';
 import IssueLogger from './IssueLogger';
 import nProgress from 'nprogress';
 
@@ -197,7 +197,7 @@ export default class Content extends Component {
     
     axios({
       method: 'post',
-      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
+      url: SERVER_PATH + 'jira',
       data: postData,
       }).then((response) => {
          this.setState({
@@ -221,7 +221,7 @@ export default class Content extends Component {
               },
               "summary": issue.summary || '',
               "issuetype": {
-                "id": issue.issuetype
+                "id": issue.issuetype || this.state.issueIdMap.issueToId.Bug
               },
               "description": (issue.description || '') + '{code}'+ JSON.stringify(JSON.parse(issue.testdata), null, 4) +'{code}'
           }
@@ -293,7 +293,7 @@ export default class Content extends Component {
 
     axios({
       method: 'get',
-      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira/versions',
+      url: SERVER_PATH + 'jira/versions',
       params: {
         username: userInfo.name,
         password: cryptrInstance.decrypt(userInfo.pass),
@@ -317,7 +317,7 @@ export default class Content extends Component {
 
     axios({
       method: 'get',
-      url: 'https://jira-reporter-proxy-server.herokuapp.com/jira/users',
+      url: SERVER_PATH + 'jira/users',
       params: {
         username: userInfo.name,
         password: cryptrInstance.decrypt(userInfo.pass),

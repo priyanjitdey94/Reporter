@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/login.css';
 import axios from 'axios';
-import { writeCookie, AUTHCOOKIEKEY, getCookie } from '../utils/utility';
+import { writeCookie, AUTHCOOKIEKEY, getCookie, SERVER_PATH } from '../utils/utility';
 import nProgress from 'nprogress';
 class Login extends Component {
   render () {
@@ -31,7 +31,7 @@ class Login extends Component {
     nProgress.inc(0.4);
     axios({
     method: 'get',
-    url: 'https://jira-reporter-proxy-server.herokuapp.com/jira',
+    url: SERVER_PATH + 'jira',
     params: {
       username,
       password
