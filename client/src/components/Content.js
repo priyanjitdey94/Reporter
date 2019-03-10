@@ -181,6 +181,10 @@ export default class Content extends Component {
       data,
       issues: data.map(datum => Object.assign({}, datum))
     });
+
+    if (this.state.project) {
+      this.setProjectInIssues(this.state.project.key);
+    }
   }
 
   logIssue = issues => {
