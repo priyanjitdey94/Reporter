@@ -7,9 +7,13 @@ export default class IssueLogger extends Component {
       });
 
     return (
-      <div className={this.props.showIssueLogger ? 'issue-logger' : 'hide'}>
-        <button className='logger-close-button'  onClick={this.clickHandler}>&#10006;</button>
-        <div className="issue-logger-screen">{issues}</div>
+      <div className='issue-logger-container'>
+        <div className={this.props.showIssueLogger ? 'issue-logger' : 'hide'}>
+          <div className='logger-close-btn-container'>
+          <button className='logger-close-button'  onClick={this.clickHandler}>&#10006;</button>
+          </div>
+          <div className="issue-logger-screen">{issues}</div>
+        </div>
       </div>
     )
   }
