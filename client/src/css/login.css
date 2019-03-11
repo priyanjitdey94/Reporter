@@ -48,3 +48,8 @@ form {
   color: #D4D4D4;
   opacity: 1;
 }
+
+.login-error-message {
+  font-size: 17px;
+  color: rgb(187, 26, 26);
+}

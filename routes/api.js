@@ -20,12 +20,11 @@ router.get('/', (req, res) => {
     }).then((response) => {
         res.send(response.data);
     }).catch(function (err) {
-        res.status(401).send('login error');
+        res.send(err.data);
     });
 })
 
 router.post('/', (req, res) => {
-    console.log(JSON.stringify(req.body.issueJSON, null, 4));
     axios({
         method: 'post',
         url: 'https://fusioncharts.jira.com/rest/api/2/issue/bulk',
@@ -50,7 +49,6 @@ router.post('/', (req, res) => {
 });
 
 router.get('/versions', (req, res) => {
-    console.log(req.query);
     axios({
         method: 'get',
         url: `https://fusioncharts.jira.com/rest/api/2/project/${req.query.projKey}/versions`,
@@ -73,7 +71,6 @@ router.get('/versions', (req, res) => {
 })
 
 router.get('/users', (req, res) => {
-    console.log(req.query);
     axios({
         method: 'get',
         url: `https://fusioncharts.jira.com/rest/api/2/user/assignable/search?project=${req.query.projKey}`,

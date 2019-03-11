@@ -7,7 +7,7 @@ class Login extends Component {
   render () {
     return (
       <div className='login-form'>
-      <div className={(this.props.rightCredential || (this.props.rightCredential === ''))  ? 'hide' : ''}>Wrong Username/Password</div>
+      <div className={(this.props.rightCredential || (this.props.rightCredential === ''))  ? 'hide' : 'login-error-message'}>Wrong Username/Password</div>
       <form onSubmit={(e)=> {e.preventDefault(); this.authorizeLogin()}} >
         <div className='form-row'>
           <input type='text' id='username' placeholder="Username"></input>
@@ -40,8 +40,8 @@ class Login extends Component {
       this.props.handleUserData(response.data);
 
       enc = cryptrInstance.encrypt(password);
-      writeCookie(AUTHCOOKIEKEY, username, enc, 1000 * 60 * 60 * 6);
       if (response.data){
+        writeCookie(AUTHCOOKIEKEY, username, enc, 1000 * 60 * 60 * 6);
         this.props.handleCredential(true);
         this.props.onUserAuth(getCookie(AUTHCOOKIEKEY));
       } else {
