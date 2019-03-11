@@ -4,9 +4,9 @@ Automate the issue reporting process on JIRA.
 
 ### Setup
 
-`node server.js
- cd client
- npm start`
+`node server.js`
+`cd client`
+`npm start`
 
 ### Input format in CSV
 * `Issue type`: Describe the type of issue. The input should be same as in JIRA(For example, Bug is correct. bUg is not)
