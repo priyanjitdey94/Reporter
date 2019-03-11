@@ -6,7 +6,6 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Content from './components/Content';
 import { CRYPTOPHRASE, getCookie, AUTHCOOKIEKEY, SERVER_PATH } from './utils/utility';
-import { Offline, Online } from "react-detect-offline";
 import './css/nProgress.css';
 
 class App extends Component {
@@ -30,11 +29,8 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Online>
         <Header showLogout={userInfo} onLogout={this.resetSession}/>
         {bodyVisual}
-        </Online>
-        <Offline><div id='offline-div'>You're offline right now. Check your connection.</div></Offline>
       </div>
     );
   }
