@@ -67,6 +67,7 @@ class Modal extends Component {
       description = JSON.stringify(JSON.parse(info.testdata), undefined, 4);
     return (
       <div className='modal-background'>
+       <div className='modal-container'>
           <div className='modal-header'>
           <button className='modal-header-button'  onClick={this.handler}>&#10006;</button>
           </div>
@@ -125,6 +126,7 @@ class Modal extends Component {
             <button className='modal-footer-button modal-footer-apply-button' onClick={this.submitHandler}>Apply</button>
           </div>
       </div>
+    </div>  
     );
   }
 
